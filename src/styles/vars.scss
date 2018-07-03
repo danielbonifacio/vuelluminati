@@ -1,0 +1,77 @@
+/* Estilização da aplicação
+ * ------------------------
+ * Paleta de cores
+*/
+
+// Defaults
+$black: #000000;
+$white: #FFFFFF;
+
+// Sicoob
+$dark: #01333A;
+$darkAlt: #00a694;
+$lightDark: #04655a;
+$light: #7ab51d;
+$lightAlt: #c9d100;
+
+// States
+$danger: #c3250d;
+$dangerColor: #ffffff;
+$dangerAltColor: #222222;
+
+$warning: #ffbc00;
+$warningColor: #fff;
+$warningAltColor: #fff;
+
+$default: #09f;
+$defaultColor: #fff;
+
+
+// Estilos padrões do sistema
+.view {
+  padding: 40px 0;
+}
+
+
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pull-right {
+  float: right !important;
+}
+
+.pull-left {
+  float: left !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.text-hide {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.affix {
+  position: fixed;
+}
