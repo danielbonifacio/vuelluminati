@@ -7,7 +7,7 @@ import App from './App'
 // Cores
 import router 	from '@/core/router'
 import store 	from '@/core/store'
-import http  	from '@/core/axios'
+import http  	from '@/core/http'
 import Config 	from '@/core/config'
 import Moment 	from '@/core/moment'
 import Warner 	from '@/core/warner'
@@ -24,8 +24,8 @@ Vue.config.productionTip = false
 Warner();
 
 // Permite acessar métodos importados dentro da aplicação
-Vue.prototype.$moment = Moment
-Vue.prototype.$config = Config
+Vue.prototype.$moment 	= Moment
+Vue.prototype.$config 	= Config
 
 // Atalhos da aplicação
 Vue.prototype.$appUrl = Config.envs[Enviroment].app

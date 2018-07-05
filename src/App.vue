@@ -15,9 +15,9 @@ export default {
 	computed: mapGetters(['Logged', 'Loading', 'Success', 'Error']),
 	beforeCreate () {
 		// Caso não esteja logado (refresh ou primeira requisição) tenta logar
-		// if(!this.logged) {
-		// 	this.$store.dispatch('App/Login')
-		// }
+		if(!this.logged) {
+			this.$store.dispatch('App/Login')
+		}
 	}
 };
 </script>

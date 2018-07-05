@@ -1,25 +1,24 @@
 # Vuelluminati
 
-> Helper para aplicações escaláveis com Vuejs
+> Helper para aplicações escaláveis com Vue.js
 
 ## Setup
 
 ``` bash
-
 # Clona o repositório
-git clone https://github.com/danielbonifacio/vuelluminati ./my-dir
+$ git clone https://github.com/danielbonifacio/vuelluminati ./my-dir
 
 # Navega para a pasta em que o repositório foi criado
-cd my-dir
+$ cd my-dir
 
 # Instala as dependências
-npm install
+$ npm install
 
 # Inicia o servidor de desenvolvimento com hot update
-npm run dev
+$ npm run dev
 
 # Compila para produção
-npm run build
+$ npm run build
 ```
 
 Este repositório utiliza como base o template [webpack](http://vuejs-templates.github.io/webpack/).
@@ -60,16 +59,14 @@ O **Vuelluminati** considera como estados da aplicação verificações como "Es
 Estas informações podem ser recuperadas através dos getters: `Loading`, `Logged`, `Success` e `Error`.
 
 Exemplo de uso:
-``` app.vue
+``` vue
 <template>
 	<div class="app" v-if="Logged">
 		Estou logado
 	</div>
 </template>
 <script>
-	// Importando o helper do vuex
 	import { mapGetters } from 'vuex'
-
 	export default {
 		name: 'App',
 		computed: mapGetters({ 'Logged': 'App/Logged' })
@@ -77,4 +74,113 @@ Exemplo de uso:
 </script>
 ```
 
-Os módulos vêm com namespace ativado por padrão.
+O Vuelluminati recomenda a utilização de namespaces em módulos e vem com eles ativados por padrão.
+
+Você pode criar um helpers de namespaces para facilitar e evitar repetição de código.
+
+``` javascript
+import { createNamespacedHelpers } from 'vuex'
+const { mapGetters, mapActions } = createNamespacedHelpers('App')
+export default {
+	computed: mapGetters(['Logged']),
+	methods: {
+		...mapActions(['Login'])
+	}
+}
+```
+##### Loading
+
+>Controla se o estado da aplicação é "carregando".
+
+O componente referente à este state está no diretório `~Atoms/Loading`
+Exemplos de uso:
+``` vue
+<template>
+	<div id="app">
+		<a-loading v-if="Loading"/>
+		<o-view v-else>
+			<button @click="setLoading(true)"></button>
+		</o-view>
+	</div>
+</template>
+<script>
+	import { mapGetters } from 'vuex'
+	export default {
+		name: 'App',
+		computed: mapGetters({ 'Loading': 'App/Loading' }),
+		created () {
+			this.$store.dispatch('Cars/getRecentCars')
+		}
+	}
+</script>
+```
+``` javascript
+import http from '../../http'
+import config from '../../config'
+
+const Cars = {
+	namespaced: true,
+	state: {
+		cars: []
+	},
+	mutations: {
+		pushCars: (state, payload) => state.cars.push(Object.assign({}, payload))
+	},
+	actions: {
+		getRecentCars: ({ commit, dispatch }, payload, { root: true }) => {
+			// Informa que a aplicação está carregando
+			dispatch('App/Loading', true)
+
+			http.get(`${config.envs[config.env].api}/cars/${payload}`)
+			.then( res => {
+				commit('pushCars', res.data)
+
+				// Informa que a aplicação não está mais carregando
+				dispatch('App/Loading', false)
+			})
+		}
+	}
+}
+
+export default Cars
+```
+
+Somente actions com `{ root: true }` poderão acessar o módulo `App`.
+
+Você pode fazer um `dispatch` diretamente de um método do componente, mas trabalhar com módulos no `vuex` traz diversas vantagens e o Vuelluminati recomenda fortemente.
+
+##### Logged
+> Antes de criar o componente raiz, verifica se foi feito o login
+
+Por padrão, o estado da aplicação é deslogado.
+
+Você pode esconder e exibir componentes através da diretiva `v-if` comparando com este state.
+
+``` vue
+<template>
+	<div id="app">
+		<div v-if="Logged">
+			Estou logado
+		</div>
+		<div v-else>
+			Não estou logado
+		</div>
+	</div>
+</template>
+
+<script>
+	import { mapGetters } from 'vuex'
+	export default {
+		name: 'App',
+		computed: mapGetters({ 'Logged': 'App/Logged' })
+	}
+</script>
+```
+
+Você pode configurar a action de login em `@/core/config/login.js` para agir da forma como você desejar.
+
+Por padrão, a action faz uma requisição do tipo get para external route 'API/Login'.
+
+Esta requisição verifica se o token foi setado e envia como um header `Authorization`.
+
+Você pode configurar se este token é um Bearer ou não no arquivo de *Preciso criar esta opção*

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import Login from '@/core/login'
 import Config from '@/core/config'
 
 const App = {
@@ -36,16 +36,14 @@ const App = {
 		HIW: 		(context, payload) 	=>	context.commit('hiw', payload),
 		Loading: 	(context, payload) 	=>	context.commit('loading', payload),
 		// XHR based payloads
-		Login: context =>	{
+		Login: ({ commit }) =>	{
 			let url = Config.envs[Config.env].api
-			axios.get(`${url}/autenticar`)
+			Login.TokenLogin()
 			.then( res => {
-				if (res.status == 200)
-					return context.commit('logged', true)
+				return  res ? commit('logged', true) : false
 			})
 			.catch( err => {
-				window.alert(err.response.status)
-				window.location.href = Config.app.forbidden.url
+				window.alert(err)
 			})
 		},
 		// Object based payloads
