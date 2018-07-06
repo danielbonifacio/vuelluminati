@@ -1,5 +1,6 @@
-import Login from '@/core/login'
+import Login from '@/core/abstractions/login'
 import Config from '@/core/config'
+import Externals from '@/core/ecosystem/router/externals'
 
 const App = {
 	namespaced: true,	
@@ -36,15 +37,11 @@ const App = {
 		HIW: 		(context, payload) 	=>	context.commit('hiw', payload),
 		Loading: 	(context, payload) 	=>	context.commit('loading', payload),
 		// XHR based payloads
-		Login: ({ commit }) =>	{
-			let url = Config.envs[Config.env].api
-			Login.TokenLogin()
-			.then( res => {
-				return  res ? commit('logged', true) : false
-			})
-			.catch( err => {
-				window.alert(err)
-			})
+		ValidateToken: ({ commit }) =>	{
+			let url = Externals.API.Auth
+			Login['TokenValidate'](url)
+			.then( res => res == 200 ? commit('logged', true) : false )
+			.catch( err => window.alert(err) )
 		},
 		// Object based payloads
 		Success: (context, payload) =>	{

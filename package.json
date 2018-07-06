@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
     "moment": "^2.22.1",
+    "normalize-port": "^1.0.0",
     "sass-resources-loader": "^1.3.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",

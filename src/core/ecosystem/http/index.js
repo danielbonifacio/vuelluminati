@@ -10,7 +10,7 @@
  */
 
 import Axios from 'axios'
-import Config from '../config'
+import Config from '@/core/config'
 
 // Todas as requisições feitas com o Axios, por padrão receberão estes headers
 Axios.defaults.headers.common['Authorization'] = window.localStorage.getItem(Config.app.token.key);
