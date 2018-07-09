@@ -7,7 +7,6 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-
 const { mapGetters } = createNamespacedHelpers('App')
 
 export default {
@@ -16,7 +15,7 @@ export default {
 	beforeCreate () {
 		// Caso não esteja logado (refresh ou primeira requisição) tenta logar
 		if(!this.logged) {
-			this.$store.dispatch('App/ValidateToken')
+			// this.$store.dispatch('App/ValidateToken')
 		}
 	}
 };

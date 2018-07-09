@@ -27,25 +27,8 @@ module.exports = {
       
       // Globals
       '@': resolve('src'),
-      'Core': resolve('src/core'),
-      
-      // Common aliases
-      'vars': resolve('src/assets/scss/vars.scss'),
-      'main_style': resolve('src/assets/scss/main_style.scss'),
-      'fontawesome': resolve('src/assets/fa/css/all.css'),
-
-      // Static assets
-      'images': resolve('src/assets/img'),
-      'sass': resolve('src/assets/scss'),
-      'vectors': resolve('src/assets/svg'),
-      'fonts': resolve('src/assets/fonts'),
-
-      // Vue assets
-      'Views': resolve('src/views'),
-      'Atoms': resolve('src/components/atoms'),
-      'Molecules': resolve('src/components/molecules'),
-      'Organisms': resolve('src/components/organisms'),
-      'Components': resolve('src/components'),
+      '%': resolve('src/core'),
+      '$': resolve('src/assets')
     }
   },
   module: {

@@ -1,5 +1,5 @@
-/* Constantes do Aplicativo
- */
+'use strict'
+
 const App = {
 	title: {
 		string: 'Portal da Inovacao',

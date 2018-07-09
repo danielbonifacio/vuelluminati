@@ -1,7 +1,7 @@
 'use strict'
 
 const Login = {
-	mode: 'token',
+	mode: 'TokenValidate',
 	method: 'get'
 }
 

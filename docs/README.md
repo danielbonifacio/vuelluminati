@@ -76,7 +76,7 @@ Exemplo de uso:
 
 O Vuelluminati recomenda a utilização de namespaces em módulos e vem com eles ativados por padrão.
 
-Você pode criar um helpers de namespaces para facilitar e evitar repetição de código.
+Você pode criar um namespace helper para facilitar e evitar repetição de código.
 
 ``` javascript
 import { createNamespacedHelpers } from 'vuex'
@@ -149,8 +149,8 @@ Somente actions com `{ root: true }` poderão acessar o módulo `App`.
 
 Você pode fazer um `dispatch` diretamente de um método do componente, mas trabalhar com módulos no `vuex` traz diversas vantagens e o Vuelluminati recomenda fortemente.
 
-##### Logged
-> Antes de criar o componente raiz, verifica se foi feito o login
+##### Login
+> Envia requisições de Login e Autenticação para o servidor
 
 Por padrão, o estado da aplicação é deslogado.
 
@@ -177,10 +177,50 @@ Você pode esconder e exibir componentes através da diretiva `v-if` comparando 
 </script>
 ```
 
-Você pode configurar a action de login em `@/core/config/login.js` para agir da forma como você desejar.
+###### Método
+
+Você pode configurar o método de login **padrão** em `@/core/config/login.js`
+
+A chave `Mode` pode receber 2 valores: `TokenValidate`, `PostLogin` (o modo `PostLogin`ignora completamente `method`)
+
+**TokenValidate**
+
+Envia uma requisição para o servidor com com o método informado na chave `method` com o token que está armazenado no storage do navegador.
+
+**PostLogin**
+
+Envia um post para o servidor com com usuário, senha e *adições*.
+
+Este método espera como parâmetro 3 itens:
+- `user` (string)
+- `password` (string)
+- `_aditions` (object) (opcional)
+
+``` javascript
+...
+	methods: {
+		tryLogin () {
+			let payload = {
+				user: 'foo',
+				password: 'bar',
+				_aditions: { baz: 'qux', corge: 'grault' ... }
+			}
+			this.$store.dispatch('App/PostLogin', payload)
+		}
+	}
+...
+```
+
+É importante lembrar que o servidor irá receber as chaves `user`, `password` e `aditions` (sem uderscore).
+
+Você deve configurar a função de login diretamente no módulo App:
+``` javascript
+
+```
 
 Por padrão, a action faz uma requisição do tipo get para external route 'API/Login'.
 
 Esta requisição verifica se o token foi setado e envia como um header `Authorization`.
 
 Você pode configurar se este token é um Bearer ou não no arquivo de *Preciso criar esta opção*
+

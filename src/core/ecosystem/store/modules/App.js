@@ -38,8 +38,17 @@ const App = {
 		Loading: 	(context, payload) 	=>	context.commit('loading', payload),
 		// XHR based payloads
 		ValidateToken: ({ commit }) =>	{
+			// Recupera a url para qual será enviada a requisição
 			let url = Externals.API.Auth
-			Login['TokenValidate'](url)
+
+			// Envia a requição para a URL
+			Login[Config.login.mode || 'get'](url)
+			.then( res => res == 200 ? commit('logged', true) : false )
+			.catch( err => window.alert(err) )
+		},
+		Login: ({ commit }) =>	{
+			let url = Externals.API.Login
+			Login[Config.login.mode](url)
 			.then( res => res == 200 ? commit('logged', true) : false )
 			.catch( err => window.alert(err) )
 		},
@@ -54,7 +63,7 @@ const App = {
 		Error: (context, payload) =>	{
 			payload.route	= payload.route 	!= undefined	? payload.route 	: null
 			payload.is 		= payload.is 		!= undefined	? payload.is 		: true
-			payload.message = payload.message 	!= undefined 	? payload.message 	: 'Sucesso ao realizar ação'
+			payload.message = payload.message 	!= undefined 	? payload.message 	: 'Erro ao realizar ação'
 
 			context.commit('error', payload)
 		}
