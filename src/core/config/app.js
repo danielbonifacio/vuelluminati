@@ -1,16 +1,23 @@
 'use strict'
 
+import Config from '@/core/config'
+
 const App = {
 	title: {
-		string: 'Portal da Inovacao',
+		string: 'Vuelluminati',
 		separator: ' - '
 	},
 	forbidden: {
-		url: 'https://apps.sicoobes.com.br/portal/'
+		url: baseUrl('/login', 'app')
 	},
 	token: {
-		key: 'tokenSicoobEsPortalInovacao'
+		key: 'token'
 	}
+}
+
+const baseUrl = function (params, base = undefined) {
+	base = base != undefined ? base : 'app'
+	return Config.envs[Config.env][base] + params
 }
 
 export default App
