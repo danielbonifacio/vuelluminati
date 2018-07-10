@@ -1,6 +1,5 @@
-/* Ambientes de desenvolvimento
- * @author: Daniel Bonifacio
- */
+'use strict'
+
 const Envs = {
 	front: {
 		api: 'https://api.yourappbase.com/yourapp',

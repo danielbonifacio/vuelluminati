@@ -1,6 +1,15 @@
 'use strict'
 
-import Config from '@/core/config'
+import Envs from '%/config/envs'
+import Env from '%/config/env'
+
+const baseUrl = function (params, base = undefined) {
+	if(!params){
+		throw new SyntaxError("Nenhum parâmetro foi inserido")
+	}
+	base = base != undefined ? base : 'app'
+	return Envs[Env][base] + params
+}
 
 const App = {
 	title: {
@@ -13,11 +22,6 @@ const App = {
 	token: {
 		key: 'token'
 	}
-}
-
-const baseUrl = function (params, base = undefined) {
-	base = base != undefined ? base : 'app'
-	return Config.envs[Config.env][base] + params
 }
 
 export default App
