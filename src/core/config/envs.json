@@ -10,9 +10,5 @@
   "prod": {
     "api": "https://api.yourappbase.com/yourapp",
     "app": "https://apps.yourappbase.com/yourapp"
-  },
-  "teste": {
-    "api": "batata",
-    "app": "lasanha"
   }
 }

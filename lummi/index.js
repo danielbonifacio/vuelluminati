@@ -1,5 +1,6 @@
 'use strict'
 
+const chalk = require('chalk')
 const add = require('./modules/add')
 const del = require('./modules/delete')
 const update = require('./modules/update')
@@ -46,4 +47,11 @@ if (args.includes('change')) {
   if (willShow == 'env') {
     return change.env(args[2])
   }
+}
+
+else {
+  let helper = true
+
+  console.log('Comando não reconhecido.')
+  console.log('Digite ' + chalk.bgBlue(' node lummi -h ') + ' para ver a lista de comando disponíveis')
 }
