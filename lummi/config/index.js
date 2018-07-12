@@ -17,7 +17,7 @@ module.exports = {
     port: 8080, // pode ser sobrescritp por process.env.PORT
     autoOpenBrowser: true,
     errorOverlay: true,
-    notifyOnErrors: false,
+    notifyOnErrors: true,
     poll: false,
     devtool: 'cheap-module-eval-source-map',
 

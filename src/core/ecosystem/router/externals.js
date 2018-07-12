@@ -10,8 +10,8 @@ const api = route => envHelper(route, 'api')
 
 const Externals = {
 	API: {
-		Auth: api('auth'),
-		Login: api('login')
+		Auth: 'dsadas',
+		Login: 'dsadasd'
 	}
 }
 

@@ -56,6 +56,10 @@ if (args.includes('run')) {
   if (willRun == 'build') {
     return run.build()
   }
+
+  if (willRun == 'dev') {
+    return run.dev()
+  }
 }
 
 else {

@@ -1,6 +1,6 @@
 <template>
 	<!-- A aplicação só irá aparecer caso o estado da aplicação seja logado -->
-	<div id="app">
+  <div id="app">
 		<router-view/>
 	</div>
 </template>
@@ -15,10 +15,11 @@ export default {
 	beforeCreate () {
 		// Caso não esteja logado (refresh ou primeira requisição) tenta logar
 		if(!this.logged) {
-			this.$store.dispatch('App/ValidateToken')
+			// this.$store.dispatch('App/ValidateToken')
 		}
 	}
-};
+}
+
 </script>
 
 <style lang="scss">
@@ -28,7 +29,7 @@ export default {
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	
+
 	// Tamanho
 	height: 100vh;
 
