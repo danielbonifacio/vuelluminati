@@ -6,6 +6,7 @@ const del = require('./modules/delete')
 const update = require('./modules/update')
 const show = require('./modules/show')
 const change = require('./modules/change')
+const run = require('./modules/run')
 
 let args = process.argv.slice(2)
 
@@ -46,6 +47,14 @@ if (args.includes('change')) {
 
   if (willShow == 'env') {
     return change.env(args[2])
+  }
+}
+
+if (args.includes('run')) {
+  let willRun = args[1]
+
+  if (willRun == 'build') {
+    return run.build()
   }
 }
 
