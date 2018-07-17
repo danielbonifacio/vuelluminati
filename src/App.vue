@@ -1,6 +1,6 @@
 <template>
-	<!-- A aplicação só irá aparecer caso o estado da aplicação seja logado -->
-  <div id="app">
+	<!-- Componente Raiz -->
+	<div id="app" v-if=''>
 		<router-view/>
 	</div>
 </template>
@@ -11,13 +11,7 @@ const { mapGetters } = createNamespacedHelpers('App')
 
 export default {
 	name: 'App',
-	computed: mapGetters(['Logged', 'Loading', 'Success', 'Error']),
-	beforeCreate () {
-		// Caso não esteja logado (refresh ou primeira requisição) tenta logar
-		if(!this.logged) {
-			// this.$store.dispatch('App/ValidateToken')
-		}
-	}
+	computed: mapGetters(['Logged', 'Loading', 'Success', 'Error'])
 }
 
 </script>

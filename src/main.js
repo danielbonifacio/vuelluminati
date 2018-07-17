@@ -2,7 +2,7 @@
 
 import Vue from '@/vue.config'
 import App from '@/App'
-import router from '@/core/ecosystem/router'
+import router from '%/ecosystem/router'
 
 new Vue({
 	router,
