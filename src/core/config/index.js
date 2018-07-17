@@ -6,7 +6,7 @@ import app from './app.json'
 import login from './login'
 
 const Config = {
-	env: env.env,
+	env,
 	envs,
 	app,
 	login
