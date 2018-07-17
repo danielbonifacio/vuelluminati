@@ -11,6 +11,10 @@ Token.get = (key) => {
 	if (App.token.mode.toLowerCase() == 'cookie') {
 		return Cookie.get(token)
 	}
+
+	if (App.token.mode.toLowerCase() == 'session') {
+		return window.sessionStorage.getItem(token)
+	}
 }
 
 Token.check = (key) => {
@@ -18,6 +22,10 @@ Token.check = (key) => {
 
 	if (App.token.mode.toLowerCase() == 'cookie') {
 		return Cookie.check(token)
+	}
+
+	if (App.token.mode.toLowerCase() == 'cookie') {
+		return window.sessionStorage.getItem(token) ? true : false
 	}
 }
 

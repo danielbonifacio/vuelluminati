@@ -1,19 +1,15 @@
-/*
- * Axios é uma biblioteca que facilita as requisições XHR
- * Este arquivo é responsável por normalizar todas as requisições
- * ------
- * As requisições que partem para o servidor só serão aceitas caso possuam um header de authorization
- * Este header deverá conter um Token que está armazenado no localStorage
- * ------
- * O Axios deverá ser acessado diretamente da instância do vue por meio do prototipado $http
- * Ex: $http.get('url de requisição').then(...)
- */
+import Http from 'axios'
+import Token from '%/abstractions/token'
 
-import Axios from 'axios'
-import Config from '@/core/config'
+let Headers = new Object
+if (Token.check()) {
+	Headers['Authorization'] = Token.get('token')
+}
+Headers['Content-Type'] = 'application/json' // Normalizando o tipo de envio de dados nas requisições
 
-// Todas as requisições feitas com o Axios, por padrão receberão estes headers
-Axios.defaults.headers.common['Authorization'] = window.localStorage.getItem(Config.app.token.key);
-Axios.defaults.headers.common['Content-Type'] = 'application/json'; // Normalizando o tipo de envio de dados nas requisições
+Object.keys(Headers).map(key => {
+	console.log(key + ": " + Headers[key])
+	Http.defaults.headers.common[key] = Headers[key]
+})
 
-export default Axios;
+export default Http;

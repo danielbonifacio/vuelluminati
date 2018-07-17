@@ -11,7 +11,10 @@ const { mapGetters } = createNamespacedHelpers('App')
 
 export default {
 	name: 'App',
-	computed: mapGetters(['Logged', 'Loading', 'Success', 'Error'])
+	computed: mapGetters(['Logged', 'Loading', 'Success', 'Error']),
+	created () {
+		this.$http.get('http://localhost:8081')
+	}
 }
 
 </script>

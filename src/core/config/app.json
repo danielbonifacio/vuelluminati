@@ -7,6 +7,7 @@
 		"url": "http://localhost:8080/403"
 	},
 	"token": {
-		"key": "token"
+		"key": "token",
+		"mode": "session"
 	}
 }
