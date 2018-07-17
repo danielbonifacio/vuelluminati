@@ -1,13 +1,11 @@
 'use strict'
 
 import Vue from 'vue'
-import App from './App'
 
 // Config
 import Config 	from '@/core/config'
 
 // Ecossistema
-import Router 	from '@/core/ecosystem/router'
 import Store 	from '@/core/ecosystem/store'
 import Http 	from '@/core/ecosystem/http'
 
@@ -21,7 +19,7 @@ Vue.config.productionTip = false
 
 Vue.prototype.$date 	= Date
 Vue.prototype.$error 	= Error
-Vue.prototype.$config 	= Config
+Vue.prototype.$config = Config
 Vue.prototype.$http		= Http
 Vue.prototype.$store	= Store
 
