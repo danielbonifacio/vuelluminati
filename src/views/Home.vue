@@ -14,9 +14,7 @@
 	export default {
 		name: 'Home',
 		data: () => ({
-			title: `
-				<span>Vue</span>lluminati
-			`
+			title: `<span>Vue</span>lluminati`
 		}),
 		computed: mapGetters({ version: 'Sys/Version', vueVersion: 'Sys/Vue' })
 	}
@@ -25,6 +23,7 @@
 <style lang="scss">
 	img {
 		margin-bottom: 20px;
+		max-width: 160px;
 	}
 
 	.description {
@@ -33,4 +32,4 @@
 		color: rgba($blue, .7);
 	}
 </style>
- 
+

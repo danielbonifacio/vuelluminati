@@ -1,7 +1,7 @@
 {
   "name": "vuelluminati",
-  "version": "0.1.0",
-  "description": "Vue scalable application helper",
+  "version": "1.0.0",
+  "description": "Helper para Projetos escaláveis com Vuejs",
   "author": "Daniel Bonifacio",
   "private": true,
   "scripts": {

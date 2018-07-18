@@ -1,11 +1,12 @@
 'use strict'
 
 import Vue from 'vue'
+import App from '%/config/app.json'
 
 const System = {
 	namespaced: true,
 	state: {
-		version: '0.1.0',
+		version: App.version,
 		vueVersion: Vue.version
 	},
 	getters: {
