@@ -5,8 +5,8 @@ import App from '@/App'
 import router from '%/ecosystem/router'
 
 new Vue({
-	router,
-	el: '#app',
-	components: { App },
-	template: '<App/>'
+  router,
+  el: '#app',
+  components: { App },
+  template: '<App/>'
 })
