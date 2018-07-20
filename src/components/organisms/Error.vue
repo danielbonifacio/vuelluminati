@@ -27,6 +27,10 @@ export default {
 	props: ['state'],
 	methods: {
 		close () {
+			if (this.Error.route) {
+				console.log(this.Error.route)
+				this.$router.push(typeof this.Error.route == 'object' ? this.Error.route : { name: this.Error.route })
+			}
 			this.$store.dispatch('App/Error', false)
 		}
 	}

@@ -16,7 +16,7 @@ const App = {
 		error: {
 			status: false,
 			message: 'Erro',
-			route: null
+			route: 'batata'
 		}
 	},
 	mutations: {
