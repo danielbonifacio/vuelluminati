@@ -2,29 +2,29 @@
   <!-- Componente Raiz -->
   <div id="app">
     <o-loading :state="Loading"/>
+    <o-error :state="Error.status"/>
     <router-view />
   </div>
 </template>
 
 <script>
 import LoadingOrganism from '@/components/organisms/Loading'
+import ErrorOrganism from '@/components/organisms/Error'
 import { createNamespacedHelpers } from 'vuex'
 const { mapGetters } = createNamespacedHelpers('App')
 
 export default {
   name: 'App',
   components: {
-    'o-loading': LoadingOrganism
+    'o-loading': LoadingOrganism,
+    'o-error': ErrorOrganism,
   },
   data: () => ({
     load: true
   }),
   computed: mapGetters(['Logged', 'Loading', 'Success', 'Error']),
   created () {
-    this.$store.dispatch('App/Loading', true)
-    this.$http
-      .get(this.$app)
-      .then(this.$store.dispatch('App/Loading', false))
+    this.$store.dispatch('App/Login', { user: 'foo', pass: 'bar' })
   }
 }
 

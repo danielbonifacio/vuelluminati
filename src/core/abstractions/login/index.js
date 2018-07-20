@@ -1,6 +1,5 @@
 'use strict'
 
-import Config from '%/config'
 import Http from '%/ecosystem/http'
 
 const Login = new Object()
