@@ -1,7 +1,10 @@
 'use strict'
 
 const chalk = require('chalk')
+const path = require('path')
+const { Root } = require('../../config/dir')
 const Envs = require('./envs.json')
+const Package = require(path.resolve(Root, 'package.json'))
 
 const Helpers = {
 	'Ambientes': Envs
@@ -16,6 +19,11 @@ Helper.Index = () => {
 			console.log(`	${helper.command}\n	` + chalk.grey(`# ${helper.description}\n`))
 		})
 	})
+}
+
+Helper.Version = () => {
+	console.log(`   Lummi está na versão: ` + chalk.green(`${'0.2.1'}`))
+	console.log(`   O projeto está na versão: ` + chalk.green(`${Package.version}`))
 }
 
 module.exports = Helper

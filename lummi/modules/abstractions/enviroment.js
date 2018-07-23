@@ -51,9 +51,25 @@ Enviroment.change = (enviroment) => {
 	}
 }
 
-Enviroment.show = function () {
-	let env = require(Env)
-	showUp('O ambiente atual é: ' + chalk.green(env))
+Enviroment.show = function (query) {
+	query = query != undefined ? query : false
+	if (!query) {
+		let env = require(Env)
+		showUp('O ambiente atual é: ' + chalk.green(env))
+	} else if (query == 'all') {
+		let space = '   '
+		let envs = require(Envs)
+		console.log('\n')
+
+		Object.keys(envs).map(env => {
+			console.log(space + chalk.bgGreen(` ${env} `))
+			Object.keys(envs[env]).map(val => {
+				console.log(space + chalk.bgGreen(` ${val} `) + ' - ' + chalk.green(envs[env][val]))
+			})
+			console.log('\n')
+		})
+
+	}
 	process.exit()
 }
 

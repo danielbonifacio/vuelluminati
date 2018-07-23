@@ -38,6 +38,10 @@ if (args.includes('show')) {
   if (willShow == 'env') {
     return show.env()
   }
+
+  if (willShow == 'envs') {
+    return show.envs()
+  }
 }
 
 if (args.includes('change')) {
@@ -54,7 +58,7 @@ if (args.includes('run')) {
   let willRun = args[1]
 
   if (willRun == 'build') {
-    return run.build()
+    return run.build(args.slice(2))
   }
 
   if (willRun == 'dev') {
@@ -65,6 +69,11 @@ if (args.includes('run')) {
 if (args.includes('-h') || args.includes('--help')) {
   const Helper = require('./modules/helper')
   Helper.Index()
+}
+
+if (args.includes('-v') || args.includes('--version')) {
+  const Helper = require('./modules/helper')
+  Helper.Version()
 }
 
 else {

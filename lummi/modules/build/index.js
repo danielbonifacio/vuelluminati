@@ -13,26 +13,53 @@ const config = require('../../config')
 const webpackConfig = require('./webpack.prod.conf')
 const { Root, Env } = require('../../config/dir')
 const enviroment = require(Env)
+let Package = require(path.resolve(Root, 'package.json'))
 
 // Armazena o backup com o ambiente
-let bkp = Object.assign({}, enviroment)
+let bkp = JSON.stringify(enviroment, null, 2)
 
 // Configura o ambiente para produção
-let prod = enviroment
-prod.env = 'prod'
+let prod = 'prod'
 
 // Altera o ambiente interno da aplicação para produção
 module.exports = {
-  build: () => {
+  build: (args) => {
     process.env.NODE_ENV = 'production'
     const spinner = ora('Compilando...')
     spinner.start()
 
+    // Versionamento
+    let ver = Package.version.split('.')
+		let major = ver[0]
+		let minor = ver[1]
+		let patch = ver[2]
+
+  	if (args.includes('-M') || args.includes('--major')) {
+  		major++
+  	}
+
+  	if (args.includes('-m') || args.includes('--minor')) {
+  		minor++
+  	}
+
+  	if (args.includes('-p') || args.includes('--patch')) {
+  		patch++
+  	}
+
+  	Package.version = `${major}.${minor}.${patch}`
+  	try {
+			fs.writeFileSync(path.resolve(Root, 'package.json'), JSON.stringify(Package, null, 2))
+  	} catch (err) {
+  		console.log('Não foi possível alterar a versão do projeto, mas isso não significa que ele não foi compilado.')
+  		console.log(err)
+  	}
+
+  	// Alterando o ambiente para produção
     try {
       fs.writeFileSync(Env, JSON.stringify(prod, null, 2))
     } catch (err) {
       console.log("Erro ao compilar: não foi possível alterar o ambiente.\n")
-      console.log(chalk.red(err))
+      console.log(err)
       return;
     }
 
@@ -58,7 +85,7 @@ module.exports = {
         }
 
         try {
-          fs.writeFileSync(Env, JSON.stringify(bkp, null, 2))
+          fs.writeFileSync(Env, bkp)
           console.log(chalk.cyan('Compilado com sucesso.\n'))
           console.log(chalk.yellow(
             '   Copie a pasta \'dist\' para seu servidor HTTP .\n' +
