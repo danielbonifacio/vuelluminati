@@ -14,7 +14,7 @@ module.exports = {
 
     // Configurações do dev-server
     host: 'localhost', // pode ser sobrescrito por process.env.HOST
-    port: 8080, // pode ser sobrescritp por process.env.PORT
+    port: 8080, // pode ser sobrescrito por process.env.PORT
     autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: true,
