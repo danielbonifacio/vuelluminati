@@ -31,6 +31,8 @@
 	justify-content: center;
 	align-items: center;
 
+	z-index: 99999;
+
 	background-color: rgba($blue, .8);
 
 	.message {

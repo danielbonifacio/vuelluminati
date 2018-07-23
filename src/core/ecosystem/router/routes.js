@@ -2,6 +2,7 @@
 
 import Home from 'Views/Home'
 import NotFound from 'Views/404'
+import Testar from 'Views/Testar'
 
 const Routes = [
   // Index
@@ -19,6 +20,15 @@ const Routes = [
     meta: {
       title: 'Home'
     }
+  },
+  // Teste
+  {
+  	path: '/testar',
+  	name: 'Testar',
+  	component: Testar,
+  	meta: {
+  		title: 'Testar'
+  	}
   },
   // Não encontrado
   {

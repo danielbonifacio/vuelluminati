@@ -49,11 +49,32 @@ const App = {
 		},
 		// Object based payloads
 		Success: (context, payload) =>	{
-			payload.route 	= payload.route		!= undefined 	? payload.route 	: null
-			payload.status 	= payload.status 	!= undefined	? payload.status 		: true
-			payload.message = payload.message != undefined	? payload.message 	: 'Sucesso ao realizar ação'
+			let new_payload = null
+			if (typeof payload == 'object') {
+				payload.route		= payload.route 		!= undefined	? payload.route 		: null
+				payload.status 	= payload.status 		!= undefined	? payload.status 		: true
+				payload.message = payload.message 	!= undefined 	? payload.message 	: 'Sucesso ao realizar ação'
 
-			context.commit('success', payload)
+				new_payload = payload
+			}
+
+			if (typeof payload == 'string') {
+				new_payload = {
+					message: payload,
+					status: true,
+					route: null
+				}
+			}
+
+			if (typeof payload == 'boolean') {
+				new_payload = {
+					message: 'Sucesso ao realizar ação',
+					status: payload,
+					route: null
+				}
+			}
+
+			context.commit('success', new_payload)
 		},
 		Error: (context, payload) =>	{
 			let new_payload = null
@@ -64,8 +85,6 @@ const App = {
 
 				new_payload = payload
 			}
-
-			console.log
 
 			if (typeof payload == 'string') {
 				new_payload = {
