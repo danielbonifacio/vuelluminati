@@ -30,7 +30,8 @@ module.exports = {
       'Views': resolve('src/views'),
       'Atoms': resolve('src/components/atoms'),
       'Molecules': resolve('src/components/molecules'),
-      'Organisms': resolve('src/components/organisms'),
+			'Organisms': resolve('src/components/organisms'),
+			'Lummi': resolve('lummi')
     }
   },
   module: {

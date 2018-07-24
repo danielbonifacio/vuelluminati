@@ -1,8 +1,15 @@
+#!/usr/bin/env node
 'use strict'
 
 const chalk = require('chalk')
-
 let args = process.argv.slice(2)
+
+if (args.includes('--step') || args.includes('-s')) {
+	const step = require('./modules/step')
+	if (args.includes('env')) {
+		return step.enviroments()
+	}
+}
 
 if (args.includes('add')) {
   const add = require('./modules/add')
@@ -10,7 +17,11 @@ if (args.includes('add')) {
 
   if (willAdd == 'env') {
     return add.env(args.slice(2))
-  }
+	}
+
+	if (willAdd == 'component') {
+		return add.component(args.slice(2))
+	}
 }
 
 if (args.includes('delete')) {
@@ -68,7 +79,7 @@ if (args.includes('run')) {
 
 if (args.includes('-h') || args.includes('--help')) {
   const Helper = require('./modules/helper')
-  Helper.Index()
+  return Helper.Index()
 }
 
 if (args.includes('-v') || args.includes('--version')) {

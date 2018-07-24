@@ -8,15 +8,23 @@
 		"description": "Deleta um ambiente"
 	},
 	{
-		"command": "lummi change env <envname>",
+		"command": "lummi change env <name>",
 		"description": "Altera o ambiente atual"
 	},
 	{
-		"command": "lummi update env <envname> <apihost> <apphost>",
+		"command": "lummi update env <name> <apihost> <apphost>",
 		"description": "Atualiza um ambiente"
 	},
 	{
 		"command": "lummi show env",
 		"description": "Mostra o ambiente atual"
+	},
+	{
+		"command": "lummi show envs",
+		"description": "Mostra todos os ambientes cadastrados"
+	},
+	{
+		"command": "lummi -s env",
+		"description": "Inicia o modo Step by Step para ambientes"
 	}
 ]

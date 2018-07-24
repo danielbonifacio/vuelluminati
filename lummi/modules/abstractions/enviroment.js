@@ -14,22 +14,41 @@ Enviroment.Index = function (command) {
 		output: process.stdout
 	})
 
-	rl.question('What do you think of Node.js? ', (answer) => {
-		console.log(`Thank you for your valuable feedback: ${answer}`)
-		rl.close()
+	rl.question('O que você gostaria de fazer com os ambientes? ', (answer) => {
+		if (answer == 'add' || answer == 'adicionar') {
+			let name = ''
+			let api = ''
+			let app = ''
+			let comment = null
+			rl.question('Qual será o nome do ambiente? ', answer => {
+				name = answer
+				rl.question('Qual será a URL da API deste ambiente? ', answer => {
+					api = answer
+					rl.question('Qual será a URL da Aplicação deste ambiente? ', answer => {
+						app = answer;
+						rl.question('Descreva este comentário: ', answer => {
+							comment = answer != '' ? answer : null
+							rl.close()
+							return Enviroment.add([name, api, app, comment])
+						})
+					})
+				})
+			})
+		}
+
+		else {
+			console.log(chalk.red(`Você não pode ${answer} um ambiente. Verifique o comando e tente novamente!`))
+			rl.close()
+		}
+
 	})
-
-	if (command.includes('add')) {
-		Enviroment.Add(command.slice(2))
-	} else {
-
-	}
-	return
-	// else {
-	// 	return Enviroment.show()
-	// }
 }
 
+
+/**
+ * Altera o ambiente atual para o inserido
+ * @param {string} enviroment Nome do ambiente para qual será alterado
+ */
 Enviroment.change = (enviroment) => {
 	let env = require(Env)
 	env = enviroment
@@ -43,7 +62,7 @@ Enviroment.change = (enviroment) => {
 
 	try {
 		fs.writeFileSync(Env, env)
-		showUp('Ambiente alterado para: ' + chalk.cyan(enviroment))
+		showUp('Ambiente alterado para: ' + chalk.bgGreen(` ${enviroment} `))
 	} catch (err) {
 		showUp(chalk.yellow('Erro ao alterar o ambiente'))
 	} finally {
@@ -51,20 +70,34 @@ Enviroment.change = (enviroment) => {
 	}
 }
 
+/**
+ * Imprime no console ambientes específicos
+ * @param {string} query Query para pesquisa de ambientes
+ */
 Enviroment.show = function (query) {
 	query = query != undefined ? query : false
+	let env = require(Env)
+	let envs = require(Envs)
+	let space = '   '
 	if (!query) {
-		let env = require(Env)
-		showUp('O ambiente atual é: ' + chalk.green(env))
-	} else if (query == 'all') {
-		let space = '   '
-		let envs = require(Envs)
 		console.log('\n')
+		console.log(space + chalk.bgGreen(` ${env} `));
+		envs[env]['comment'] != null && console.log(space + chalk.inverse(' # ' + envs[env]['comment'] + ' '))
 
+		Object.keys(envs[env]).map(val => {
+			if (val != 'comment') {
+				console.log(space + chalk.bgGreen(` ${val} `) + ' - ' + chalk.green(envs[env][val]))
+			}
+		})
+	} else if (query == 'all') {
+		console.log('\n')
 		Object.keys(envs).map(env => {
 			console.log(space + chalk.bgGreen(` ${env} `))
+			envs[env]['comment'] != null && console.log(space + chalk.inverse(" # " + envs[env]['comment'] + " "));
 			Object.keys(envs[env]).map(val => {
-				console.log(space + chalk.bgGreen(` ${val} `) + ' - ' + chalk.green(envs[env][val]))
+				if (val != 'comment') {
+					console.log(space + chalk.bgGreen(` ${val} `) + ' - ' + chalk.green(envs[env][val]))
+				}
 			})
 			console.log('\n')
 		})
@@ -73,10 +106,15 @@ Enviroment.show = function (query) {
 	process.exit()
 }
 
+/**
+ * Atualiza o valor de um ambiente selecioado
+ * @param {array} args - Nome do Ambiente, url da api e url da aplicação
+ */
 Enviroment.update = args => {
 	let envname = args[0] != undefined ? args[0] : null
 	let api     = args[1] != undefined ? args[1] : null
 	let app     = args[2] != undefined ? args[2] : null
+	let comment = args[3] != undefined ? args[3] : null
 
 	let envs = {}
 
@@ -92,7 +130,7 @@ Enviroment.update = args => {
 		if (!envs[envname]) {
 			return showUp(chalk.red('Você está tentando atualizar um ambienente que não existe!'))
 		} else {
-			envs[envname] = { api, app }
+			envs[envname] = { api, app, comment }
 			envs = JSON.stringify(envs, null, 2)
 		}
 	} catch (err) {
@@ -110,14 +148,20 @@ Enviroment.update = args => {
 	}
 }
 
+
+/**
+ * Adiciona um ambiente
+ * @param {array} args Nome do Ambiente, url da api e url da aplicação
+ */
 Enviroment.add = args => {
 	let envname = args[0] != undefined ? args[0] : null
 	let api     = args[1] != undefined ? args[1] : null
 	let app     = args[2] != undefined ? args[2] : null
+	let comment = args[3] != undefined ? args[3] : null
 
 	// Caso o comando nçao seja inserio de forma correta
 	if (!app || !api || !envname)
-		return showUp(chalk.red('O comando add env não foi inserido corretamente'))
+		return showUp(chalk.bgRed('O comando add env não foi inserido corretamente'))
 
 	// Define no escopo da função a variável que irá conter os ambientes
 	let envs = {}
@@ -125,45 +169,71 @@ Enviroment.add = args => {
 	// Recupera os envs atuais
 	try {
 		envs = JSON.parse(fs.readFileSync(Envs))
-
 		// verifica se o ambiente que está sendo inserido já existe
 		if (envs[envname]) {
 			return showUp(chalk.red('Você está tentando inserir um ambienente que já existe!'))
 		} else {
-			envs[envname] = { api, app }
+			envs[envname] = { api, app, comment: comment.replace(/-/g, ' ') }
 			envs = JSON.stringify(envs, null, 2)
 		}
 	} catch (err) {
 		if (err)
-			console.log('Erro ao ler ambientes'); console.log(err)
+			console.log('Erro ao ler ambientes')
+			console.log(err)
 			return
 		}
 
 	// Adiciona o novo enviroment
 	try {
 		fs.writeFileSync(Envs, envs)
-		return showUp('O ambiente ' + chalk.bgGreen(envname) + ' foi criado com sucesso')
+		return showUp('O ambiente ' + chalk.bgGreen(` ${envname} `) + ' foi criado com sucesso')
 	} catch (err) {
 		return showUp(chalk.red('Não foi possível salvar o ambiente! \n   ' + err))
 	}
 }
 
+
+/**
+ * Deleta um Ambiente previamente cadastrado
+ * @param {stringify} enviroment Ambiente a ser deletado
+ */
 Enviroment.del = enviroment => {
+	// Verifica se o usuário está tentando deletar o ambiente de produção
+	if (enviroment == 'prod') {
+		return showUp(chalk.bgRed(' Erro! ') + `  Você não pode deletar o ambinente ${chalk.bgGreen(' prod ')}!\n   ${chalk.grey('O ambiente prod é o ambiente de produção')}`)
+	}
+
+	// Recupera o ambiente atual
+	let actualEnv = getActualEnviroment()
+	if (enviroment == actualEnv) {
+		return showUp(chalk.yellow('Impossível deletar um ambiente em uso.'))
+	}
+
 	// Recupera os ambientes
 	let envs = getEnviroments()
 
 	// Deleta o ambiente
 	envs[enviroment] = undefined
-	saveEnviroments(envs, enviroment)
+	saveEnviroments(envs)
+	return showUp("O ambiente " + chalk.bgGreen(` ${enviroment} `) + " foi deletado com sucesso");
 }
 
+
+/**
+ * Imprime, no console, um valor com espaçamentos.
+ * @param {string} message Mensagem à ser exibida com destaque
+ */
 function showUp(message) {
 	console.log('\n')
 	console.log('   ' + message)
 	console.log('\n')
-
 }
 
+
+/**
+ * Verifica se o ambiente inserido existe ou não.
+ * @param {string} enviroment Ambiente a ser verificada a existência
+ */
 function enviromentExists(enviroment) {
 	try {
 		let envs = fs.readFileSync(Envs, "utf-8")
@@ -180,6 +250,10 @@ function enviromentExists(enviroment) {
 	}
 }
 
+
+/**
+ * Recupera todos os ambientes
+ */
 function getEnviroments () {
 	try {
 		return JSON.parse(fs.readFileSync(Envs, "utf8"))
@@ -188,10 +262,26 @@ function getEnviroments () {
 	}
 }
 
+
+/**
+ * Recupera o ambiente atual
+ */
+function getActualEnviroment () {
+	try {
+		return JSON.parse(fs.readFileSync(Env, "utf8"))
+	} catch (err) {
+		return showUp(chalk.bgYellow('Erro ao ler os ambientes.'))
+	}
+}
+
+
+/**
+ * Salva o arquivo com os ambientes
+ * @param {object} enviroments Objeto com os ambientes à serem salvos
+ */
 function saveEnviroments (enviroments, callbackName) {
 	try {
-		fs.writeFileSync(Envs, JSON.stringify(enviroments, null, 2))
-		return showUp('O ambiente ' + chalk.red(callbackName) + ' foi deletado com sucesso')
+		return fs.writeFileSync(Envs, JSON.stringify(enviroments, null, 2))
 	} catch (err) {
 		return showUp(chalk.red('Erro ao deletar o ambiente ') + chalk.bgRed(' ' + callbackName) + ' \n   ' + chalk.cyan(err))
 	}
