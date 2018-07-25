@@ -33,6 +33,40 @@ Você pode verificar todas as versões através do arquivo `package.json`.
 
 Atualmente o suporte vai **parcialmente** até a versão 10 (já incluso polyfill de Promises).
 
+O gerenciador da aplicação, Lummi, precisa do **node 5.6.0** ou superior.
+
+## Lummi
+O Lummi é o gerenciador de aplicações que usam a estrutura do Vuelluminati. Ele é tipo um artisan da vida, e te permite executar algumas tarefas pela linha de comando.
+
+### Ambientes
+> Gerencie vários ambientes com o Lummi
+
+O vuelluminati te permite criar vários ambientes e te ajuda a gerir eles com muita facilidade.
+
+Por padrão, há dois ambientes: `dev` e `prod`.
+
+Um ambientes possui 3 propriedades:
+- `Name`: Nome do ambiente
+- `Api`: URL base da API da aplicação (não geriada pelo vue)
+- `App`: URL base da aplicação (link para acessar a aplicação)
+- `Comment`: Descrição do ambiente (irá aparecer na listagem) *pode ser **null***
+
+#### Criando ambientes
+Há duas formas de criar um ambiente usando o Lummi:
+- Comando `add env <name> <api> <app> <comment>`
+- Comando `-s env` *Step by Step*
+
+*Exemplo:*
+`node lummi add env front https://api.host/app http://localhost:8080 Somente-front-end`
+
+Irá gere
+
+|front|
+|---|---|
+|api|https://api.host|
+|app|http://localhost:8080|
+|comment|Somente front end|
+
 ## Store
 ### Módulos
 > Módulos são pequenas distribuições de states dentro da aplicação
@@ -48,7 +82,7 @@ store
     └── System.js     # módulo do sistema
 ```
 
-Você encontra os arquivos do vuex no diretório `@/core/store`
+Você encontra os arquivos do vuex no diretório `%/ecosystem/store`.
 
 #### Módulo da aplicação
 

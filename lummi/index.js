@@ -22,6 +22,10 @@ if (args.includes('add')) {
 	if (willAdd == 'component') {
 		return add.component(args.slice(2))
 	}
+
+	if (willAdd == 'module') {
+		return add.module(args.slice(2))
+	}
 }
 
 if (args.includes('delete')) {

@@ -13,5 +13,6 @@ const Atoms = path.join(__dirname, root, 'src/components/atoms')
 const Molecules = path.join(__dirname, root, 'src/components/molecules')
 const Organisms = path.join(__dirname, root, 'src/components/organisms')
 const Components = path.join(__dirname, root, 'src/components')
+const Modules = path.join(__dirname, root, 'src/core/ecosystem/store/modules')
 
-module.exports = { Env, Envs, Root, Atoms, Molecules, Organisms, Components }
+module.exports = { Env, Envs, Root, Atoms, Molecules, Organisms, Components, Modules }
