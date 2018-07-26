@@ -19,7 +19,7 @@ let {{module_name_capitalize_first}} = {
 		{{state_name_camel_case}}: state => state.{{state_name_underscore}}
 	},
 	mutations: {
-		{{state_name_camel_case}}: (state, payload) => state.{{state_name_camel_case}} = payload
+		{{state_name_camel_case}}: (state, payload) => state.{{state_name_underscore}} = payload
 	},
 	actions: {
 		set{{state_name_camel_case_upper_first}}: ({commit}, payload) => {
@@ -29,7 +29,7 @@ let {{module_name_capitalize_first}} = {
 }
 
 export default {{module_name_capitalize_first}}
-`;
+`
 
 ModulesController.create = args => {
 	let module_name = args[0]
@@ -71,10 +71,11 @@ ModulesController.create = args => {
 
 	try {
 		ensureDirExistence(filePath);
-		fs.writeFileSync(writePath, template);
+		fs.writeFileSync(writePath, newTemplate);
 		console.log(chalk.bgGreen(` ${module_name_capitalize_first} `) + " foi criado com sucesso!");
 	} catch (err) {
 		console.log(chalk.bgRed(" Erro! ") + " Houve um erro ao criar o módulo!");
+		console.log(err)
 		if (err.code == "ENOENT") {
 			console.log("Parece que você está tentando criar um componente em um diretório inexistente!");
 		}
