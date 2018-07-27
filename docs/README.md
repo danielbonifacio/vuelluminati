@@ -33,9 +33,138 @@ Você pode verificar todas as versões através do arquivo `package.json`.
 
 Atualmente o suporte vai **parcialmente** até a versão 10 (já incluso polyfill de Promises).
 
-## Store
-### Módulos
+O gerenciador da aplicação, Lummi, precisa do **node 5.6.0** ou superior.
+
+## Lummi
+O Lummi é o gerenciador de aplicações que usam a estrutura do Vuelluminati. Ele é tipo um artisan da vida, e te permite executar algumas tarefas pela linha de comando.
+
+Os scripts do Lummi se encontram dentro do diretório `/lummi` e você precisa do node para rodar os comandos.
+
+No diretório do seu projeto, digite o comando `node lummi -h` e, caso veja a lista de comandos do lummi, tudo estará pronto para uso.
+
+Sinta-se à vontade para criar um alias no seu terminal como `alias lummi="node lummi"`
+
+## Estrutura
+
+O vuelluminati nada mais é do que uma estrutura base com dependências, componentes e módulos comuns para aplicações em vue.
+
+## Ambientes
+> Gerencie vários ambientes com o Lummi
+
+> `%/config/envs`
+
+O vuelluminati te permite criar vários ambientes e te ajuda a gerir eles com muita facilidade.
+
+Por padrão, há dois ambientes: `dev` e `prod`.
+
+`prod` é um ambinete protegido. Você não pode renomear ou deletar este ambiente, apenas definir seus valores.
+
+Um ambientes possui 3 propriedades:
+- `Name`: Nome do ambiente
+- `Api`: URL base da API da aplicação (não geriada pelo vue)
+- `App`: URL base da aplicação (link para acessar a aplicação)
+- `Comment`: Descrição do ambiente (irá aparecer na listagem) *opcional*
+
+### Criando ambientes
+Há duas formas de criar um ambiente usando o Lummi:
+- Comando `add env <name> <api> <app> [<comment>]`
+- Comando `-s env` *Step by Step*
+
+Exemplo:
+
+`node lummi add env front https://api.host/app http://localhost:8080 Somente-front-end`
+
+Irá gerar o seguinte ambiente:
+
+``` sh
+front
+# Somente front end
+app  - https://api.host/app
+api  - http://localhost:8080
+```
+
+Repare que o caracter hífen (`-`) é substituído por espaços no valor final do comentário. Isso ocorre tanto no modo step by step quanto no modo single line.
+
+### Visualizando ambientes
+Você pode visualizar todos os ambientes que estão cadastrados através do comando `show envs`
+
+Exemplo:
+
+`node lummi show envs`
+
+Por padrão irá gerar:
+``` sh
+dev
+# Ambiente de desenvolvimento
+app  - http://localhost:8080
+api  - http://localhost:3000
+
+prod
+# Ambiente de produção
+app  - https://apps.mydomain.com/appname
+api  - https://apis.mydomain.com/appname
+```
+
+Caso queira visualizar somente o ambiente que está em uso, use o comando `show env`
+
+### Editando ambientes
+Há duas formas de editar um ambiente:
+- Comando `update env <name> <new-name> <new-api> <new-app> [<comment>]`
+- Comando `-s env` *Step by Step*
+
+O ambiente `prod` é um ambiente protegido pelo lummi e você não pode alterar seu nome.
+
+Para editar seu valor, use o comando: `set prod <api> <app> [<comment>]`
+
+### Deletando ambientes
+Há duas formas de editar um ambiente:
+- Comando `delete env <name>`
+- Comando `-s env` *Step by Step*
+
+O ambiente `prod` é um ambiente protegido pelo lummi e você não pode o deletar.
+
+Você não conseguirá deletar um ambiente que esteja em uso.
+
+### Alternando entre ambientes
+Você pode alternar entre ambientes de forma fácil com o comando: `change env <name>`
+
+### Acessando ambientes
+Para acessar os ambinetes dentro do vue, utilize: `vm.$app` e `vm.$api`:
+``` vue
+<template>
+	<div id="test">
+		Api: {{ $api }} <br>
+		App: {{ $app }}
+	</div>
+</template>
+
+<script>
+	export default {
+		beforeCreate () {
+			this.$http
+				.get(`${this.$api}/auth`)
+				.catch(() => this.$store.dispatch('App/Logout'))
+		}
+	}
+</script>
+```
+
+Para acessar os ambientes dentro de algum arquivo JavaScript, você precisa importar o Config:
+
+``` javascript
+import Config from '%/config'
+
+let api = Config.envs[Config.env].api
+let app = Config.envs[Config.env].app
+
+console.log(api) // => http://localhost:3000
+console.log(app) // => http://localhost:8080
+```
+
+## Módulos
 > Módulos são pequenas distribuições de states dentro da aplicação
+
+> `%/ecosystem/store/modules`
 
 O Vuelluminati utiliza o ecossistema padrão do vue, e traz com ele o [vuex](https://vuex.vuejs.org/), que é o gerenciador de states do vue.
 
@@ -48,109 +177,105 @@ store
     └── System.js     # módulo do sistema
 ```
 
-Você encontra os arquivos do vuex no diretório `@/core/store`
+### Criando módulos
+O Lummi te permite criar módulos com facilidade atrávés do comando `add module`.
 
-#### Módulo da aplicação
+Eeste comando aceita 3 parâmetros:
+- `Module Name`: Nome do módulo que será criado
+- `State Name`: Nome do state que será criado no módulo
+- `State Value`: Um valor para o State que será criado *opcional **undefined***
 
-O módulo da aplicação contém informações sobre o estado da aplicação.
+Exemplo:
 
-O **Vuelluminati** considera como estados da aplicação verificações como "Esta aplicação está carregando?" ou "Estou logado nesta aplicação?".
+`lummi add module test-module my-state "'some string value'"`
 
-Estas informações podem ser recuperadas através dos getters: `Loading`, `Logged`, `Success` e `Error`.
-
-Exemplo de uso:
-``` vue
-<template>
-	<div class="app" v-if="Logged">
-		Estou logado
-	</div>
-</template>
-<script>
-	import { mapGetters } from 'vuex'
-	export default {
-		name: 'App',
-		computed: mapGetters({ 'Logged': 'App/Logged' })
-	}
-</script>
-```
-
-O Vuelluminati recomenda a utilização de namespaces em módulos e vem com eles ativados por padrão.
-
-Você pode criar um helpers de namespaces para facilitar e evitar repetição de código.
+Irá gerar:
 
 ``` javascript
-import { createNamespacedHelpers } from 'vuex'
-const { mapGetters, mapActions } = createNamespacedHelpers('App')
-export default {
-	computed: mapGetters(['Logged']),
-	methods: {
-		...mapActions(['Login'])
-	}
-}
-```
-##### Loading
+'use strict'
 
->Controla se o estado da aplicação é "carregando".
-
-O componente referente à este state está no diretório `~Atoms/Loading`
-Exemplos de uso:
-``` vue
-<template>
-	<div id="app">
-		<a-loading v-if="Loading"/>
-		<o-view v-else>
-			<button @click="setLoading(true)"></button>
-		</o-view>
-	</div>
-</template>
-<script>
-	import { mapGetters } from 'vuex'
-	export default {
-		name: 'App',
-		computed: mapGetters({ 'Loading': 'App/Loading' }),
-		created () {
-			this.$store.dispatch('Cars/getRecentCars')
-		}
-	}
-</script>
-```
-``` javascript
-import http from '../../http'
-import config from '../../config'
-
-const Cars = {
+let TestModule = {
 	namespaced: true,
 	state: {
-		cars: []
+		my_state: 'some string value'
+	},
+	getters: {
+		myState: state => state.my_state
 	},
 	mutations: {
-		pushCars: (state, payload) => state.cars.push(Object.assign({}, payload))
+		myState: (state, payload) => state.my_state = payload
 	},
 	actions: {
-		getRecentCars: ({ commit, dispatch }, payload, { root: true }) => {
-			// Informa que a aplicação está carregando
-			dispatch('App/Loading', true)
-
-			http.get(`${config.envs[config.env].api}/cars/${payload}`)
-			.then( res => {
-				commit('pushCars', res.data)
-
-				// Informa que a aplicação não está mais carregando
-				dispatch('App/Loading', false)
-			})
+		setMyState: ({commit}, payload) => {
+			commit('myState', payload)
 		}
 	}
 }
 
-export default Cars
+export default TestModule
 ```
 
-Somente actions com `{ root: true }` poderão acessar o módulo `App`.
+### Módulo da aplicação
 
-Você pode fazer um `dispatch` diretamente de um método do componente, mas trabalhar com módulos no `vuex` traz diversas vantagens e o Vuelluminati recomenda fortemente.
+Gerencie estados comuns da aplicação
 
-##### Logged
-> Antes de criar o componente raiz, verifica se foi feito o login
+O **Vuelluminati** considera como estados da aplicação verificações como "Estou executando uma tarefa?" ou "O usuário está autenticado?".
+
+Getters e actions: `Loading`, `Logged`, `Success` e `Error`.
+
+O Vuelluminati recomenda a utilização de namespaces em módulos e vem com eles ativados por padrão.
+``` javascript
+import { mapGetters } from 'vuex'
+export default {
+	computed: mapGetters({ 'Loading': 'App/Loading' }),
+	methods: {
+		doSomething (payload) {
+			this.$store.dispatch('App/Loading', true)
+			...
+			.finnaly(() => this.$store.dispatch('App/Loading', false))
+		}
+	}
+}
+```
+
+#### Objetos como payload
+Os states `Success` e `Error` esperam como payload um objeto com o modelo:
+``` javascript
+let payloadModel = {
+	status: true,
+	message: 'Success on action',
+	route: { name: 'Home' }
+}
+vm.$store.dispatch('App/Success', payloadModel)
+```
+
+Porém, as actions fazem uma verificação sobre o tipo de payload que está sendo enviado, assumindo os padrões:
+
+``` javascript
+// Caso o payload seja uma string:
+new_payload = {
+	message: payload,
+	status: true,
+	route: null
+}
+
+// Caso o payload seja um booleano:
+new_payload = {
+	message: 'Success on action',
+	status: payload,
+	route: null
+}
+
+// Caso o payload seja um objeto
+payload.route   = payload.route     != undefined  ? payload.route   : null
+payload.status  = payload.status    != undefined  ? payload.status  : true
+payload.message = payload.message   != undefined  ? payload.message : 'Success on action'
+
+new_payload = payload
+```
+
+#### Login
+> Envia requisições de Login e Autenticação para o servidor
 
 Por padrão, o estado da aplicação é deslogado.
 
@@ -177,10 +302,50 @@ Você pode esconder e exibir componentes através da diretiva `v-if` comparando 
 </script>
 ```
 
-Você pode configurar a action de login em `@/core/config/login.js` para agir da forma como você desejar.
+##### Método
+
+Você pode configurar o método de login **padrão** em `@/core/config/login.js`
+
+A chave `Mode` pode receber 2 valores: `TokenValidate`, `PostLogin` (o modo `PostLogin`ignora completamente `method`)
+
+**TokenValidate**
+
+Envia uma requisição para o servidor com com o método informado na chave `method` com o token que está armazenado no storage do navegador.
+
+**PostLogin**
+
+Envia um post para o servidor com com usuário, senha e *adições*.
+
+Este método espera como parâmetro 3 itens:
+- `user` (string)
+- `password` (string)
+- `_aditions` (object) (opcional)
+
+``` javascript
+...
+	methods: {
+		tryLogin () {
+			let payload = {
+				user: 'foo',
+				password: 'bar',
+				_aditions: { baz: 'qux', corge: 'grault' ... }
+			}
+			this.$store.dispatch('App/PostLogin', payload)
+		}
+	}
+...
+```
+
+É importante lembrar que o servidor irá receber as chaves `user`, `password` e `aditions` (sem uderscore).
+
+Você deve configurar a função de login diretamente no módulo App:
+``` javascript
+
+```
 
 Por padrão, a action faz uma requisição do tipo get para external route 'API/Login'.
 
 Esta requisição verifica se o token foi setado e envia como um header `Authorization`.
 
 Você pode configurar se este token é um Bearer ou não no arquivo de *Preciso criar esta opção*
+

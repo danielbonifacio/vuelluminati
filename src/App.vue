@@ -1,40 +1,51 @@
 <template>
-	<!-- A aplicação só irá aparecer caso o estado da aplicação seja logado -->
-	<div id="app">
-		<router-view/>
-	</div>
+  <!-- Componente Raiz -->
+  <div id="app">
+    <o-loading :state="Loading"/>
+    <o-error :state="Error.status"/>
+    <o-success :state="Success.status"/>
+    <router-view />
+  </div>
 </template>
 
 <script>
+import LoadingOrganism from '@/components/organisms/Loading'
+import ErrorOrganism from '@/components/organisms/Error'
+import SuccessOrganism from '@/components/organisms/Success'
 import { createNamespacedHelpers } from 'vuex'
-
 const { mapGetters } = createNamespacedHelpers('App')
 
 export default {
-	name: 'App',
-	computed: mapGetters(['Logged', 'Loading', 'Success', 'Error']),
-	beforeCreate () {
-		// Caso não esteja logado (refresh ou primeira requisição) tenta logar
-		if(!this.logged) {
-			this.$store.dispatch('App/Login')
-		}
-	}
-};
+  name: 'App',
+  components: {
+    'o-loading': LoadingOrganism,
+    'o-error': ErrorOrganism,
+    'o-success': SuccessOrganism,
+  },
+  data: () => ({
+    load: true
+  }),
+  computed: mapGetters(['Logged', 'Loading', 'Success', 'Error']),
+  created () {
+    this.$store.dispatch('App/Login', { user: 'foo', pass: 'bar' })
+  }
+}
+
 </script>
 
 <style lang="scss">
 #app {
-	// Alinhamento
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	
-	// Tamanho
-	height: 100vh;
+  // Alinhamento
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 
-	// Cores
-	background-color: $white;
-	color: $blue;
+  // Tamanho
+  height: 100vh;
+
+  // Cores
+  background-color: $white;
+  color: $blue;
 }
 </style>

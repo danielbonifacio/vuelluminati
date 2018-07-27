@@ -1,0 +1,12 @@
+{
+  "dev": {
+    "comment": "Ambiente de desenvolvimento",
+    "app": "http://localhost:8080",
+    "api": "http://localhost:3000"
+  },
+  "prod": {
+    "comment": "Ambiente de produção",
+    "app": "https://apps.mydomain.com/appname",
+    "api": "https://apis.mydomain.com/appname"
+  }
+}

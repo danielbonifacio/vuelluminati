@@ -1,15 +1,13 @@
 'use strict'
 
-import env from './env'
-import envs from './envs'
-import app from './app'
-import login from './login'
+import env from './env.json'
+import envs from './envs.json'
+import app from './app.json'
 
 const Config = {
-	env,
-	envs,
-	app,
-	login
+  env,
+  envs,
+  app
 }
 
 export default Config

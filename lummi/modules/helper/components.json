@@ -1,0 +1,6 @@
+[
+	{
+		"command": "lummi add component <name> <preprocessor>",
+		"description": "Adiciona um componente na estrutura sugerida (apenas um nest vez)"
+	}
+]
