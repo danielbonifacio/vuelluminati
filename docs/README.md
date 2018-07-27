@@ -78,16 +78,21 @@ Na hora de importar arquivos com o webpack, alguns atalhos estão disponíveis:
 |------------|--------------------------|
 |`@`         |/src                      |
 |`%`         |/src/core                 |
+|`Assets`    |/src/assets               |
 |`Components`|/src/components           |
 |`Atoms`     |/src/components/atoms     |
 |`Molecules` |/src/components/molecules |
 |`Organisms` |/src/components/organisms |
 |`Views`     |/src/views                |
 |`Config`    |/src/core/config          |
-|`Assets`    |/src/core/assets          |
+
+Você pode visualizar e alterar estes alias em `/lummi/build/webpack-base.conf.js`
 
 ## Ecossistema
-O Vuelluminatti já trás consigo o Vuex, Vue router e adiciona uma dependência ao ecossistema: `axios` (`http`)
+> O Ecossistema do Vuelluminati é a
+
+O Vuelluminatti já trás consigo o Vuex, Vue router e adiciona uma dependência ao ecossistema: `axios` (`http`).
+
 
 ## Ambientes
 > Gerencie vários ambientes com o Lummi
