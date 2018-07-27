@@ -1,6 +1,20 @@
-# Vuelluminati
+<center>
+<img src="./assets/logo.svg" width="100"/>
 
+# Vuelluminati
+</center>
 > Helper para aplicações escaláveis com Vue.js
+
+
+
+## Casos de uso
+Este projeto é mantido, atualmente, por mim, [Daniel Bonifacio](https://danielbonifacio.com.br) e por Deus. Então **não** use **jamais** e **em caso algum** este projeto para algo em produção. Ao menos que você seja eu, e você não é.
+
+Agilidade e controle sobre projetos escaláveis com Vuejs, isso que molda este projeto.
+
+O Vuelluminati **pretende** servir desenvolvedores que se preocupam com escalabilidade da aplicação e rápido desenvolvimento e controle/deploy sobre seu projeto. Padronização de código, criação de componentes, módulos e classes com um comando, e tudo em uma estrutura simples e direta.
+
+> Adotei este padrão em algumas aplicações, onde há forte comunicação com a API, e todos os processos que vejo que são cansativos e repetitivos, tento automatizar, **sem tirar o meu controle**. Autenticação e renovação de token, login, componentes de erros, sucesso, loadings, gestão de ambientes — que é uma coisa linda de ser feita com o Lummi — e tudo que eu ver que se torna repetitivo em um cenário global, venho adicionando nesta ferramenta.
 
 ## Setup
 
@@ -89,15 +103,25 @@ Na hora de importar arquivos com o webpack, alguns atalhos estão disponíveis:
 Você pode visualizar e alterar estes alias em `/lummi/build/webpack-base.conf.js`
 
 ## Ecossistema
-> O Ecossistema do Vuelluminati é a
+> Rotas, states e requests
 
-O Vuelluminatti já trás consigo o Vuex, Vue router e adiciona uma dependência ao ecossistema: `axios` (`http`).
+> `%/ecosystem`
 
+O Vuelluminatti já trás consigo o Vuex, Vue Router e adiciona uma dependência ao ecossistema: `axios` (`http`).
+
+Ele entende que uma aplicação escalável necessita de ter rotas, um gerenciamento global de dados e alguma ferramenta para realizar requisições http.
+- `store` - [Vuex](https://vuex.vuejs.org) - Gerenciador de states (disponível por meio de `$store`)
+- `http` - [Axios](https://github.com/axios/axios) - Requisições HTTP com Promises (`$http`)
+- `router` - [Vue Router](https://router.vuejs.org) - Requisições HTTP com Promises (`$route` e `$router`)
+
+Caso você não conheça o vuex e o vue-router, aprenda.
 
 ## Ambientes
 > Gerencie vários ambientes com o Lummi
 
 > `%/config/envs`
+
+Um caso muito comum para o desenvolvimento front-end, é a quantidade possível de ambientes em que nossa aplicação pode ser testada. Rodando testes com o front local na API de produção, ou localhost, ou na máquina de um colega de trabalho...
 
 O vuelluminati te permite criar vários ambientes e te ajuda a gerir eles com muita facilidade.
 
