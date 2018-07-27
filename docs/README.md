@@ -48,6 +48,47 @@ Sinta-se à vontade para criar um alias no seu terminal como `alias lummi="node 
 
 O vuelluminati nada mais é do que uma estrutura base com dependências, componentes e módulos comuns para aplicações em vue.
 
+Uma rápida análise sobre sua estrutura:
+``` sh
+src
+├── assets        # Assets que serão compilados pelo Webpack
+├── components    # Todos os componentes (see atomic design)
+    ├── atoms
+    ├── molecules
+    ├── organisms
+    └── Hello.vue
+
+├── core                # Core da aplicação
+    ├── abstractions    # Todas as classes que serão usadas
+    ├── config          # Arquivos de configuração (see Lummi)
+    └── ecosystem       # Ecossistema do Vuelluminati
+
+├── views          # Componentes que serão chamados pelo Router
+    ├── 404.vue    # Quando uma rota não existe
+    └── Home.vue   # Quando não é passada uma rota
+
+├── App.vue         # Componente raiz
+├── main.js         # Renderizador do Vue
+└── vue.config.js   # Config do renderizador
+```
+
+Na hora de importar arquivos com o webpack, alguns atalhos estão disponíveis:
+
+|atalho      |destino                   |
+|------------|--------------------------|
+|`@`         |/src                      |
+|`%`         |/src/core                 |
+|`Components`|/src/components           |
+|`Atoms`     |/src/components/atoms     |
+|`Molecules` |/src/components/molecules |
+|`Organisms` |/src/components/organisms |
+|`Views`     |/src/views                |
+|`Config`    |/src/core/config          |
+|`Assets`    |/src/core/assets          |
+
+## Ecossistema
+O Vuelluminatti já trás consigo o Vuex, Vue router e adiciona uma dependência ao ecossistema: `axios` (`http`)
+
 ## Ambientes
 > Gerencie vários ambientes com o Lummi
 
