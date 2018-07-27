@@ -125,8 +125,8 @@ Irá gerar o seguinte ambiente:
 ``` sh
 front
 # Somente front end
-app  - https://api.host/app
-api  - http://localhost:8080
+app - https://api.host/app
+api - http://localhost:8080
 ```
 
 Repare que o caracter hífen (`-`) é substituído por espaços no valor final do comentário. Isso ocorre tanto no modo step by step quanto no modo single line.
@@ -178,20 +178,20 @@ Você pode alternar entre ambientes de forma fácil com o comando: `change env <
 Para acessar os ambinetes dentro do vue, utilize: `vm.$app` e `vm.$api`:
 ``` vue
 <template>
-	<div id="test">
-		Api: {{ $api }} <br>
-		App: {{ $app }}
-	</div>
+  <div id="test">
+    Api: {{ $api }} <br>
+    App: {{ $app }}
+  </div>
 </template>
 
 <script>
-	export default {
-		beforeCreate () {
-			this.$http
-				.get(`${this.$api}/auth`)
-				.catch(() => this.$store.dispatch('App/Logout'))
-		}
-	}
+  export default {
+    beforeCreate () {
+      this.$http
+        .get(`${this.$api}/auth`)
+        .catch(() => this.$store.dispatch('App/Logout'))
+    }
+  }
 </script>
 ```
 
@@ -241,21 +241,21 @@ Irá gerar:
 'use strict'
 
 let TestModule = {
-	namespaced: true,
-	state: {
-		my_state: 'some string value'
-	},
-	getters: {
-		myState: state => state.my_state
-	},
-	mutations: {
-		myState: (state, payload) => state.my_state = payload
-	},
-	actions: {
-		setMyState: ({commit}, payload) => {
-			commit('myState', payload)
-		}
-	}
+  namespaced: true,
+  state: {
+    my_state: 'some string value'
+  },
+  getters: {
+    myState: state => state.my_state
+  },
+  mutations: {
+    myState: (state, payload) => state.my_state = payload
+  },
+  actions: {
+    setMyState: ({commit}, payload) => {
+      commit('myState', payload)
+    }
+  }
 }
 
 export default TestModule
@@ -273,14 +273,14 @@ O Vuelluminati recomenda a utilização de namespaces em módulos e vem com eles
 ``` javascript
 import { mapGetters } from 'vuex'
 export default {
-	computed: mapGetters({ 'Loading': 'App/Loading' }),
-	methods: {
-		doSomething (payload) {
-			this.$store.dispatch('App/Loading', true)
-			...
-			.finnaly(() => this.$store.dispatch('App/Loading', false))
-		}
-	}
+  computed: mapGetters({ 'Loading': 'App/Loading' }),
+  methods: {
+    doSomething (payload) {
+      this.$store.dispatch('App/Loading', true)
+      ...
+      .finnaly(() => this.$store.dispatch('App/Loading', false))
+    }
+  }
 }
 ```
 
@@ -288,9 +288,9 @@ export default {
 Os states `Success` e `Error` esperam como payload um objeto com o modelo:
 ``` javascript
 let payloadModel = {
-	status: true,
-	message: 'Success on action',
-	route: { name: 'Home' }
+  status: true,
+  message: 'Success on action',
+  route: { name: 'Home' }
 }
 vm.$store.dispatch('App/Success', payloadModel)
 ```
@@ -300,16 +300,16 @@ Porém, as actions fazem uma verificação sobre o tipo de payload que está sen
 ``` javascript
 // Caso o payload seja uma string:
 new_payload = {
-	message: payload,
-	status: true,
-	route: null
+  message: payload,
+  status: true,
+  route: null
 }
 
 // Caso o payload seja um booleano:
 new_payload = {
-	message: 'Success on action',
-	status: payload,
-	route: null
+  message: 'Success on action',
+  status: payload,
+  route: null
 }
 
 // Caso o payload seja um objeto
@@ -329,22 +329,22 @@ Você pode esconder e exibir componentes através da diretiva `v-if` comparando 
 
 ``` vue
 <template>
-	<div id="app">
-		<div v-if="Logged">
-			Estou logado
-		</div>
-		<div v-else>
-			Não estou logado
-		</div>
-	</div>
+  <div id="app">
+    <div v-if="Logged">
+      Estou logado
+    </div>
+    <div v-else>
+      Não estou logado
+    </div>
+  </div>
 </template>
 
 <script>
-	import { mapGetters } from 'vuex'
-	export default {
-		name: 'App',
-		computed: mapGetters({ 'Logged': 'App/Logged' })
-	}
+  import { mapGetters } from 'vuex'
+  export default {
+    name: 'App',
+    computed: mapGetters({ 'Logged': 'App/Logged' })
+  }
 </script>
 ```
 
@@ -369,16 +369,16 @@ Este método espera como parâmetro 3 itens:
 
 ``` javascript
 ...
-	methods: {
-		tryLogin () {
-			let payload = {
-				user: 'foo',
-				password: 'bar',
-				_aditions: { baz: 'qux', corge: 'grault' ... }
-			}
-			this.$store.dispatch('App/PostLogin', payload)
-		}
-	}
+  methods: {
+    tryLogin () {
+      let payload = {
+        user: 'foo',
+        password: 'bar',
+        _aditions: { baz: 'qux', corge: 'grault' ... }
+      }
+      this.$store.dispatch('App/PostLogin', payload)
+    }
+  }
 ...
 ```
 
