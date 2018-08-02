@@ -10,8 +10,8 @@
 </template>
 
 <script>
-	import { mapGetters } from 'vuex'
-	import StatusBox from 'Atoms/StatusBox'
+	import { mapGetters } from 'vuex';
+	import StatusBox from 'Components/StatusBox';
 
 	export default {
 		name: 'Testar',
@@ -23,16 +23,16 @@
 		components: { StatusBox },
 		methods: {
 			toggleError () {
-				this.$store.dispatch('App/Error', { message: 'Você causou um erro. Olha que burro!' })
+				this.$store.dispatch('App/Error', { message: 'Você causou um erro. Olha que burro!' });
 			},
 			toggleSuccess () {
-				this.$store.dispatch('App/Success', { message: 'Finalmente fez uma boa pra deus ver!' })
+				this.$store.dispatch('App/Success', { message: 'Finalmente fez uma boa pra deus ver!' });
 			},
 			toggleLoading () {
 				let dispatch = this.$store.dispatch
-				dispatch('App/Loading', true)
-				setTimeout(() => dispatch('App/Loading', false), 1500)
-			}
+				dispatch('App/Loading', true);
+				setTimeout(() => dispatch('App/Loading', false), 1500);
+			},
 		}
-	}
+	};
 </script>

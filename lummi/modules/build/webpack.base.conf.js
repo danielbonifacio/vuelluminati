@@ -28,10 +28,7 @@ module.exports = {
       '@': resolve('src'),
       '%': resolve('src/core'),
       'Views': resolve('src/views'),
-      'Atoms': resolve('src/components/atoms'),
-      'Molecules': resolve('src/components/molecules'),
-			'Organisms': resolve('src/components/organisms'),
-			'Lummi': resolve('lummi')
+      'Components': resolve('src/components')
     }
   },
   module: {

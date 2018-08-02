@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import LoadingOrganism from '@/components/organisms/Loading'
-import ErrorOrganism from '@/components/organisms/Error'
-import SuccessOrganism from '@/components/organisms/Success'
+import LoadingOrganism from '@/components/TheLoading'
+import ErrorOrganism from '@/components/TheError'
+import SuccessOrganism from '@/components/TheSuccess'
 import { createNamespacedHelpers } from 'vuex'
 const { mapGetters } = createNamespacedHelpers('App')
 
