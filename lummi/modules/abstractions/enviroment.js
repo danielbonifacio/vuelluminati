@@ -75,10 +75,13 @@ Enviroment.change = (enviroment) => {
  * @param {string} query Query para pesquisa de ambientes
  */
 Enviroment.show = function (query) {
+	let space = '   '
+	if (!fs.existsSync(Envs)) {
+		return console.log(space + chalk.bgMagenta('O Arquivo de ambientes não foi encontrado!') + '\n' + space + 'Gere ambientes com o comando: ' + chalk.inverse(' lummi generate envs '))
+	}
 	query = query != undefined ? query : false
 	let env = require(Env)
 	let envs = require(Envs)
-	let space = '   '
 	if (!query) {
 		console.log('\n')
 		console.log(space + chalk.bgGreen(` ${env} `));
@@ -89,6 +92,7 @@ Enviroment.show = function (query) {
 				console.log(space + chalk.bgGreen(` ${val} `) + ' - ' + chalk.green(envs[env][val]))
 			}
 		})
+    console.log('\n')
 	} else if (query == 'all') {
 		console.log('\n')
 		Object.keys(envs).map(env => {
@@ -101,8 +105,9 @@ Enviroment.show = function (query) {
 			})
 			console.log('\n')
 		})
-
-	}
+	} else {
+    return console.log('Query não pode ser processada')
+  }
 	process.exit()
 }
 

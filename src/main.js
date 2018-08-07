@@ -1,12 +1,11 @@
-'use strict'
+import Router from 'Core/Router';
+import Vue from './vue.config';
+import App from './App';
 
-import Vue from '@/vue.config'
-import App from '@/App'
-import router from '%/ecosystem/router'
-
+/* eslint-disable no-new */
 new Vue({
-  router,
   el: '#app',
+  router: Router,
   components: { App },
-  template: '<App/>'
-})
+  template: '<App/>',
+});

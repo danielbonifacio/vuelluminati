@@ -1,3 +1,5 @@
+@import "./vars";
+
 html,
 body {
 	font-family: $font;
@@ -7,4 +9,21 @@ body {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+}
+
+
+a {
+  color: $green;
+
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 1px dashed $green;
+}
+
+p {
+  margin: 10px 0;
+}
+
+h1 {
+  margin-bottom: 20px;
 }
