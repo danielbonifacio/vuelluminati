@@ -1,5 +1,5 @@
 <center>
-<img src="./assets/logo.svg" width="100"/>
+<!-- <img src="/assets/logo.svg" width="100"/> -->
 </center>
 
 # Vuelluminati
@@ -14,7 +14,7 @@ O Vuelluminati **pretende** servir desenvolvedores que se preocupam com escalabi
 
 > Adotei este padrão em algumas aplicações, onde há forte comunicação com a API, e todos os processos que vejo que são cansativos e repetitivos, tento automatizar, **sem tirar o meu controle**. Autenticação e renovação de token, login, componentes de erros, sucesso, loadings, gestão de ambientes — que é uma coisa linda de ser feita com o Lummi — e tudo que eu ver que se torna repetitivo em um cenário global, venho adicionando nesta ferramenta.
 
-## Setup
+## Instalação
 
 ``` bash
 # Clona o repositório
