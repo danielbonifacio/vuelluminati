@@ -65,7 +65,7 @@ exports.cssLoaders = function (options) {
       {
         loader: 'sass-resources-loader',
         options: {
-          resources: path.resolve(Root, 'src/assets/scss/global.scss')
+          resources: path.resolve(Root, 'src/assets/scss/vars.scss')
         }
       }
     ),

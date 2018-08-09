@@ -1,8 +1,8 @@
 .fade-enter-active,
 .fade-leave-active {
-	transition: opacity 0.5s;
+  transition: opacity .25s cubic-bezier(.4,0,.2,1);
 }
 .fade-enter,
 .fade-leave-to {
-	opacity: 0;
+  opacity: 0;
 }

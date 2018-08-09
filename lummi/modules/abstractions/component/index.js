@@ -38,7 +38,7 @@ Component.add = (args) => {
 	}
 
 	let Vue = {
-		name: _.upperFirst(componentName)
+		name: _.upperFirst(_.camelCase(componentName))
 	}
 
 	let template

@@ -88,7 +88,14 @@ if (args.includes('-h') || args.includes('--help')) {
 
 if (args.includes('-v') || args.includes('--version')) {
   const Helper = require('./modules/helper')
-  Helper.Version()
+  return Helper.Version()
+}
+
+if (args.includes('generate')) {
+  if (args.includes('envs')) {
+		const generate = require('./modules/generate')
+		return generate.envs()
+	}
 }
 
 else {

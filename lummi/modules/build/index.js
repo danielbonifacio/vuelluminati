@@ -1,8 +1,6 @@
 'use strict'
 require('./check-versions')()
 
-// Define o ambiente como Produção
-
 const fs = require('fs')
 const ora = require('ora')
 const rm = require('rimraf')

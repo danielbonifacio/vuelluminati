@@ -1,22 +1,20 @@
 <center>
-<img src="./assets/logo.svg" width="100"/>
+<!-- <img src="/assets/logo.svg" width="100"/> -->
+</center>
 
 # Vuelluminati
-</center>
-> Helper para aplicações escaláveis com Vue.js
 
-
+## O que é?
+Um conjunto de ferramentas, módulos e bases mais comuns
 
 ## Casos de uso
-Este projeto é mantido, atualmente, por mim, [Daniel Bonifacio](https://danielbonifacio.com.br) e por Deus. Então **não** use **jamais** e **em caso algum** este projeto para algo em produção. Ao menos que você seja eu, e você não é.
-
 Agilidade e controle sobre projetos escaláveis com Vuejs, isso que molda este projeto.
 
 O Vuelluminati **pretende** servir desenvolvedores que se preocupam com escalabilidade da aplicação e rápido desenvolvimento e controle/deploy sobre seu projeto. Padronização de código, criação de componentes, módulos e classes com um comando, e tudo em uma estrutura simples e direta.
 
 > Adotei este padrão em algumas aplicações, onde há forte comunicação com a API, e todos os processos que vejo que são cansativos e repetitivos, tento automatizar, **sem tirar o meu controle**. Autenticação e renovação de token, login, componentes de erros, sucesso, loadings, gestão de ambientes — que é uma coisa linda de ser feita com o Lummi — e tudo que eu ver que se torna repetitivo em um cenário global, venho adicionando nesta ferramenta.
 
-## Setup
+## Instalação
 
 ``` bash
 # Clona o repositório

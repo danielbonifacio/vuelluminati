@@ -1,39 +1,38 @@
 <template>
   <!-- Componente Raiz -->
   <div id="app">
-    <o-loading :state="Loading"/>
-    <o-error :state="Error.status"/>
-    <o-success :state="Success.status"/>
+    <the-success/>
+    <the-error/>
+    <the-loading/>
+
     <router-view />
   </div>
 </template>
 
 <script>
-import LoadingOrganism from '@/components/organisms/Loading'
-import ErrorOrganism from '@/components/organisms/Error'
-import SuccessOrganism from '@/components/organisms/Success'
-import { createNamespacedHelpers } from 'vuex'
-const { mapGetters } = createNamespacedHelpers('App')
+  import TheLoading from 'Components/TheLoading';
+  import TheError from 'Components/TheError';
+  import TheSuccess from 'Components/TheSuccess';
 
-export default {
-  name: 'App',
-  components: {
-    'o-loading': LoadingOrganism,
-    'o-error': ErrorOrganism,
-    'o-success': SuccessOrganism,
-  },
-  data: () => ({
-    load: true
-  }),
-  computed: mapGetters(['Logged', 'Loading', 'Success', 'Error']),
-  created () {
-    this.$store.dispatch('App/Login', { user: 'foo', pass: 'bar' })
+  import { mapGetters } from 'vuex';
+
+  export default {
+    name: 'App',
+    components: {
+      TheLoading,
+      TheError,
+      TheSuccess,
+    },
+    data: () => ({
+      load: true
+    }),
   }
-}
-
 </script>
 
 <style lang="scss">
+@import "~@/assets/scss/normalize";
+@import "~@/assets/scss/animations";
+
 #app {
   // Alinhamento
   display: flex;

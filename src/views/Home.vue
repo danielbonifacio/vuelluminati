@@ -2,9 +2,13 @@
   <div id="home" class="view-box">
     <img src="@/assets/svg/logo.svg" alt="Vuelluminati">
     <h1 v-html="title"></h1>
+
     <p class="description">Uma estrutura para projetos escaláveis com Vuejs</p>
-    <p>Vuelluminati <strong>{{ version }}</strong></p>
-    <p><i class="fab fa-vuejs"></i>Vue <strong>{{ vueVersion }}</strong></p>
+    <p>Ambiente: <strong>{{ $config.env }}</strong></p>
+    <p>
+      <a href="https://danielbonifacio.com.br/vuelluminati">Documentação</a>
+    </p>
+
   </div>
 </template>
 

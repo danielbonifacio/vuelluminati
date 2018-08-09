@@ -1,19 +1,27 @@
-# Vuelluminati
+# vuelluminati
 
-> Helper para aplicações escaláveis com Vuejs
+> Estrutura escalável para VueJS
 
-## Setup de Desenvolvimento
+## Build Setup
 
 ``` bash
-# Instala as dependências
+# install dependencies
 npm install
 
-# Serve com hot reload em localhost:8080
+# serve with hot reload at localhost:8080
 npm run dev
 
-# Compila para produção minificado
+# build for production with minification
 npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+
+# run unit tests
+npm run unit
+
+# run all tests
+npm test
 ```
 
-Para uma melhor explicação, veja o [guia do template](http://vuejs-templates.github.io/webpack/) e a [documentação do vue-loader](http://vuejs.github.io/vue-loader).
-git checkout
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
