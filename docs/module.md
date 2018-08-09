@@ -22,7 +22,7 @@ Vamos criar um módulo, usando o comando:
 node lummi add module myCustomModule myAwesomeState "'My Cool Value of my Awesome State'"
 ```
 
-O resultado esperado em `Core/Store/modules/myCustomModule.js` é:
+O resultado esperado em `Core/Store/modules/MyCustomModule.js` é:
 
 ``` javascript
 const MY_AWESOME_STATE = 'MY_AWESOME_STATE';

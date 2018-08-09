@@ -8,13 +8,11 @@
   * [Ambiente](enviroment.md)
   * [Componente](component.md)
   * [Módulo](module.md)
-  * [Write a Plugin](write-a-plugin.md)
-  * [Markdown configuration](markdown.md)
-  * [Language highlighting](language-highlight.md)
+  * [Build](build.md)
 
-* Guide
+* Recursos
 
-  * [Deploy](deploy.md)
+  * [Módulo App](app_module.md)
   * [Helpers](helpers.md)
   * [Vue compatibility](vue.md)
   * [CDN](cdn.md)

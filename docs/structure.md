@@ -26,7 +26,7 @@ Na hora de importar arquivos com o webpack, alguns atalhos estão disponíveis:
 |------------|----------------|
 |`@`         |/src            |
 |`Core`      |/src/core       |
-|`Views`     |/src/assets     |
+|`Views`     |/src/views      |
 |`Components`|/src/components |
 
 *Exemplo de uso:*
