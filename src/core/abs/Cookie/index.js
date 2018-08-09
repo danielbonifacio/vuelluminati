@@ -1,13 +1,13 @@
 class Cookie {
   constructor(options = {}) {
-    this.force = options.force || false;
+    this.force = options.force || true;
   }
 
   get = function getByName(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
-    return '';
+    return null;
   };
 
   check = function checkIfExists(name) {
@@ -24,13 +24,15 @@ class Cookie {
     date.setTime(date.getTime() + (time * 60 * 60 * 1000));
     date = date.toUTCString();
     document.cookie = `${name}=${value};expires=${date};path=/`;
+
+    return true;
   }
 
   unset = function unsetCookie(name) {
     if (this.check(name) || this.force === true) {
       return Cookie.set(name, null, 0);
     }
-    throw new Error('Impossível deletar um cookie que não existe');
+    return false;
   }
 }
 
