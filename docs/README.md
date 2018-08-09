@@ -29,7 +29,7 @@
   }
 </style>
 <div style="text-align: center;">
-  <img src="/assets/logo.svg" width="100"/>
+  <img src="./assets/logo.svg" width="100"/>
   <h1>Vuelluminati</h1>
   <p>Estrutura para projetos escaláveis com Vue.js</p>
 </div>
