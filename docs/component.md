@@ -35,5 +35,13 @@ O resultado esperado em `Components/MyCoolComponentWithCamelCase.vue` é:
 </style>
 ```
 
+Caso queira criar componentes aninhados, você pode passar **um**
+único aninhamento inexistente, ou todos os aninhamentos existentes antes do nome do componente:
+
+```
+node lummi add component nested/MyComponent scss
+```
+
+irá gerar `Components/nested/MyComponent.vue`
 
 Note que o Lummi, assim como o Vuelluminati, segue o lint do [airbnb](https://github.com/airbnb/javascript).

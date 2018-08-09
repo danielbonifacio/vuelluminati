@@ -9,7 +9,7 @@ O Módulo App traz consigo alguns states padrão:
 
 ### Loading
 
-Controla se o componente `TheLoading` irá aparecer ou não na tela.
+Controla se `Components/TheLoading` irá ou não ficar visível no viewport.
 
 ``` javascript
 import { mapGetters } from 'vuex';
@@ -30,9 +30,9 @@ export default {
 };
 ```
 
-### Error
+### Error e Success
 
-Controla como o componente `TheError` deve se comportar.
+Controla como `Components/TheError` e `Components/TheSuccess` irão se comportar.
 
 ``` javascript
 import { mapGetters } from 'vuex';
@@ -41,10 +41,16 @@ export default {
   methods: {
     doSomething() {
       myPromiseBasedFunction()
+        .then(res => {
+          this.$store.dispatch('App/setSuccess', {
+            status: true,
+            message: res.message
+          });
+        })
         .catch(err => {
           this.$store.dispatch('App/setError', {
             status: true,
-            message: err.message, 
+            message: err.message,
           });
         });
     },
@@ -58,4 +64,33 @@ Caso você passe uma string como payload, o componente irá normalizar o objeto 
   status: true,
   message: payload,
 }
+```
+
+### Login
+
+Controla se `@/App` será renderizado.
+
+Você pode controlar este estado de outro módulo. Por exemplo:
+``` javascript
+const root = { root: true };
+const token = new Token();
+const user = new User({
+  name: 'john_doe',
+  pass: 'pass@123',
+});
+
+const Module = {
+  state: {...},
+  getters: {...},
+  mutations: {...},
+  actions: {
+    authUser: ({ dispatch }) => {
+      user.login()
+        .then(token => {
+          token.set(token)
+          dispatch('App/setLogin', true, root);
+        });
+    },
+  },
+};
 ```

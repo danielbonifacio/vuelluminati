@@ -22,7 +22,7 @@ Vamos criar um módulo, usando o comando:
 node lummi add module myCustomModule myAwesomeState "'My Cool Value of my Awesome State'"
 ```
 
-O resultado esperado em `Core/Store/modules/MyCustomModule.js` é:
+O resultado esperado em `Core/Store/modules/myCustomModule.js` é:
 
 ``` javascript
 const MY_AWESOME_STATE = 'MY_AWESOME_STATE';
@@ -52,4 +52,4 @@ export default MyCustomModule;
 
 O Lummi entende que sua responsabilidade é de apenas gerar o arquivo do módulo.
 
-Você deve importar seu módulo manualmente no `Vuex.Store` e não há formas de automatizar este processo na versão atual do Lummi.
+Você deve importar seu módulo manualmente no `Vuex.Store` e não há uma alternativa nativa para automativar o processo na versão atual do Lummi.
