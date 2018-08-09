@@ -7,7 +7,7 @@ Para criar um novo projeto com a estrutura, basta clonar o repositório **vuellu
 
 ``` sh
 # Clona o repositório
-git clone https://github.com/danielbonifacio/vuelluminati-structure ./my-dir
+git clone https://github.com/danielbonifacio/vuelluminati ./my-dir
 
 # Navega para a pasta em que o repositório foi criado
 cd my-dir
