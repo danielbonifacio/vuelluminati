@@ -3,7 +3,7 @@
 ## Instalação
 Não recomendamos instalar o vuelluminati em projetos já em andamento, pois será necessário **refatorar muito código**, dependendo do nível de complexidae da da aplicação.
 
-Para criar um novo projeto com a estrutura, basta clonar o repositório **vuelluminati-structure** (estrutura limpa)
+Para criar um novo projeto com a estrutura, basta clonar o repositório **vuelluminati**.
 
 ``` sh
 # Clona o repositório
