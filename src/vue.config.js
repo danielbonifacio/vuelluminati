@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Config from 'Core/Config';
 import Store from 'Core/Store';
 import Http from 'Core/Http';
+import './polyfill.min';
 
 Vue.config.productionTip = process.env.NODE_ENV === 'development';
 
