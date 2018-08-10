@@ -5,3 +5,4 @@
 /*.js
 /test/unit/coverage/
 /lummi/
+*.min.js
