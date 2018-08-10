@@ -26,7 +26,7 @@ const {{module_name_capitalize_first}} = {
   },
   actions: {
     set{{state_name_camel_case_upper_first}}: ({ commit }, payload) => {
-      commit([{{state_name_upper_snake}}], payload);
+      commit({{state_name_upper_snake}}, payload);
     },
   },
 };
@@ -45,7 +45,7 @@ ModulesController.create = args => {
 
   let state_name_camel_case = _.camelCase(state_name)
   let state_name_underscore = _.snakeCase(state_name)
-  let module_name_capitalize_first = _.upperFirst(_.camelCase(module_name))
+  let module_name_capitalize_first = _.camelCase(_.upperFirst(module_name))
   let state_name_camel_case_upper_first = _.upperFirst(_.camelCase(state_name))
   let state_name_upper_snake = _.upperCase(state_name).replace(/ /g, '_')
 
