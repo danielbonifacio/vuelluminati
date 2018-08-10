@@ -1,4 +1,4 @@
-## Módulo
+# Módulo
 
 O Vuelluminati utiliza o ecossistema padrão do vue, e traz com ele o [vuex](https://vuex.vuejs.org/), que é o gerenciador de states do vue.
 

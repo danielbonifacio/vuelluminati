@@ -1,4 +1,4 @@
-## Token
+# Token
 
 Em aplicações que necessitam de comunicação com API, geralmente, um token é enviado nos headers.
 
@@ -11,7 +11,7 @@ http://localhost:8080?token=SEU_TOKEN_AQUI
 
 Por padrão, este observador só existe no carregamento da janela.
 
-### Para onde vai?
+## Para onde vai?
 
 O Token só é enviado nos cabeçalhos das requisições caso seja encontrado.
 
@@ -24,7 +24,7 @@ Authentication: Bearer SEU_TOKEN_AQUI
 ```
 
 
-### Classe Token
+## Classe Token
 
 Caso queira realizar modificações no token em ciclos diferentes, use a **classe** `Core/abs/Token`
 

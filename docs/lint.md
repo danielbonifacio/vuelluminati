@@ -1,4 +1,4 @@
-## Lint
+# Lint
 
 O Vuelluminati extende, por padrão, os lints `airbnb/javascript` e `vue-essential` e usa o ESLint para isto.
 

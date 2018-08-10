@@ -1,4 +1,4 @@
-## Build
+# Build
 
 O Build de uma aplicação pode se tornar um processo chato ao longo do tempo, especialmente quando necessitamos de manter atualizado o versionamento do projeto.
 
@@ -10,13 +10,13 @@ Há duas formas de empacotar a aplicação utilizando a estrutura Vuelluminati:
 2. `node lummi run build [-M=MAJOR] [-m=MINOR] [-p=PATCH]`
 
 
-### `npm run build`
+## `npm run build` {docsify-ignore}
 
 Este comando irá empacotar a aplicação inteira no ambiente `prod` e gerar todos os arquivos no diretório `/dist`.
 
 **O Lummi irá substituir temporariamente o ambiente atual por `prod` e, assim que completado o processo de build, retorna para o ambiente anterior**
 
-### `node lummi run build`
+## `node lummi run build` {docsify-ignore}
 
 Este comando faz o mesmo que o comando acima. A diferença é que ele aceita 3 parâmetros opcionais:
 

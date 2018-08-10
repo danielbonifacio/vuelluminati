@@ -1,4 +1,4 @@
-## Ambiente
+# Ambiente
 
 Gerenciar ambientes com o Vuelluminati se torna muito fácil com o **Lummi**.
 
@@ -6,7 +6,7 @@ O Lummi é uma espécie de artisan para o vue, e foi projetado para a estrutura 
 
 Você consegue gerenciar os ambientes apenas pela linha de comando, e só precisa de ter o node (5.6.0+) instalado em sua máquina.
 
-### Gerando ambientes
+## Gerando ambientes
 
 Caso você clone o repositório, e tente rodar `npm run dev` imediatamente após instalar as dependências, será alertado que existem 2 arquivos em falta:
 
@@ -20,7 +20,7 @@ Para gerar estes arquivos, execute o comando: `node lummi generate envs`
 ***Nota:*** *Caso deseje compartilhar seus ambientes através do git, basta remover o arquivo .gitignore dentro do diretório /src/core/Config*
 
 
-### Visualizando ambientes
+## Visualizando ambientes
 
 Por padrão, o Lummi gera dois ambientes: `prod` e `dev`, sendo `prod` um ambiente **protegido**.
 
@@ -31,7 +31,7 @@ node lummi show envs
 
 Você também pode visualizar apenas o ambiente atual, com o comando: `node lummi show env`
 
-### Criando ambientes
+## Criando ambientes
 
 Para criar um ambiente, você precisa entender suas propredades:
 
@@ -48,7 +48,7 @@ node lummi add env exemplo https://api.eg https://app.eg "Apenas um env de exemp
 
 Uma mensagem de sucesso irá aparecer na tela. Isso significa que seu ambiente está pronto para ser acessado.
 
-### Deletando ambientes
+## Deletando ambientes
 
 Caso deseje deletar um ambiente específico, use o comando: `node lummi delete env NOME_DO_AMBIENTE`
 
@@ -60,14 +60,14 @@ Como mencionado acima, o ambiente `prod` é um ambiente **protegido** e não pod
 
 **Cuidado!** O Lummi não pergunta se você tem certeza se deseja fazer algo. Você manda, ele faz sem questionar.
 
-### Atualizando ambientes
+## Atualizando ambientes
 
 Caso deseje atualizar um ambiente específico, use o comando:
 ```
 node lummi update env NOME_DO_AMBIENTE API APP [COMENTARIO]
 ```
 
-### Alternando entre ambientes
+## Alternando entre ambientes
 
 Criar ambientes se torna uma tarefa inútil se você não puder usar eles de forma inteligente.
 
@@ -78,7 +78,7 @@ node lummi change env NOME_DO_AMBIENTE
 
 Obviamente, você só poderá alternar entre ambientes cadastrados.
 
-### Acessando ambientes dentro da aplicação
+## Acessando ambientes dentro da aplicação
 
 Dentro da sua `vm` existem três atalhos: `$app`, `$api` e `$config` onde você pode acessar os valores do ambiente atual.
 

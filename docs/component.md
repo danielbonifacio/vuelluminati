@@ -1,4 +1,4 @@
-## Componente
+# Componente
 
 O Lummi também te permite criar componentes diretamente da linha de comando, e ele gera uma estrutura completa, poupando algum tempo.
 

@@ -1,7 +1,7 @@
 * Iniciando
 
-  * [Quick start](quickstart.md)
   * [Estrutura](structure.md)
+  * [Configuração Inicial](initial_configuration.md)
 
 * Lummi
 
@@ -12,10 +12,12 @@
 
 * Recursos
 
-  * [Módulo App](app_module.md)
+  * [Módulo da aplicação](app_module.md)
   * [Token](token.md)
   * [Cookie](cookie.md)
   * [Lint <sup style="color:red">(novo)<sup>](lint.md)
 
-* [Propósito](purpose.md)
-* [Changelog](changelog.md)
+* Sobre
+
+  * [Créditos](credits.md)
+  * [Changelog](changelog.md)

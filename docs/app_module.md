@@ -1,13 +1,13 @@
-## Módulo da aplicação
+# Módulo da aplicação
 
-O Módulo App traz consigo alguns states padrão:
+O módulo `App` traz consigo alguns states padrão:
 
 - `Loading` *Boolean*
 - `Error` *Object*
 - `Success` *Object*
 - `Login` *Boolean*
 
-### Loading
+## Loading
 
 Controla se `Components/TheLoading` irá ou não ficar visível no viewport.
 
@@ -30,7 +30,7 @@ export default {
 };
 ```
 
-### Error e Success
+## Error e Success
 
 Controla como `Components/TheError` e `Components/TheSuccess` irão se comportar.
 
@@ -66,7 +66,7 @@ Caso você passe uma string como payload, o componente irá normalizar o objeto 
 }
 ```
 
-### Login
+## Login
 
 Controla se `@/App` será renderizado.
 

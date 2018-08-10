@@ -1,4 +1,4 @@
-## Estrutura
+# Estrutura
 
 A estrutura que o Vuelluminati segue é de simples entendimento:
 cada diretório tem uma **responsabilidade**, e cada aninhamento, uma **especialidade**.

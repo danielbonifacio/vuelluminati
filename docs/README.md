@@ -1,73 +1,46 @@
-<style>
-  .link {
-    color: #42b983!important;
-  }
-  .space {
-    height: 50px;
-  }
-  .center {
-    text-align: center;
-  }
-  .green {
-    color: #42b983!important;
-    font-size: 1.4em!important;
-  }
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 -15px;
-  }
-  .col {
-    width: 100%;
-    flex-grow: 1;
-    padding: 0 10px;
-  }
-  @media screen and (min-width: 768px) {
-    .col {
-      width: 33.3333%;
-    }
-  }
-</style>
-<div style="text-align: center;">
-  <img src="./assets/logo.svg" width="100"/>
-  <h1>Vuelluminati</h1>
-  <p>Estrutura para projetos escaláveis com Vue.js</p>
-</div>
+# Iniciando
 
-<div class="row">
-  <div class="col center">
-    <h2 class="green">Agilidade e Produção</h2>
-    <p>
-      Ferramenta capaz de criar componentes e módulos com apenas um comando.
-    </p>
-  </div>
-  <div class="col center">
-    <h2 class="green">Gestão de ambientes</h2>
-    <p>
-      Crie ambientes, edite e alterne entre ambientes com facilidade através do Lummi.
-    </p>
-  </div>
-  <div class="col center">
-    <h2 class="green">Padronização de código</h2>
-    <p>
-      Lint e recomendações suficientes e necessárias para um bom desenvolvimento em equipe.
-    </p>
-  </div>
-</div>
+## Instalação
+Não recomendamos instalar o vuelluminati em projetos já em andamento, pois será necessário **refatorar muito código**, dependendo do nível de complexidae da da aplicação.
 
-<div class="space"></div>
+Para criar um novo projeto com a estrutura, basta clonar o repositório **vuelluminati**.
 
-<div class="row center">
-  <div class="col">
-    Vuelluminati: <strong>1.0.0</strong> <br>
-    Vue: <strong>2.5.2</strong>
-    <br>
-    <br>
-    Desenvolvido com ❤ por
-    <br>
-    <strong><a
-      class="link"
-      href="https://fb.com/danielbnfc"
-      >Daniel Bonifacio</a></strong>
-  </div>
-</div>
+``` sh
+# Clona o repositório
+git clone https://github.com/danielbonifacio/vuelluminati ./my-dir
+
+# Navega para a pasta em que o repositório foi criado
+cd my-dir
+
+# Instala as dependências
+npm install
+
+# Gera os ambientes (necessário)
+node lummi generate envs
+
+# Inicia o servidor de desenvolvimento com hot update
+npm run dev
+
+# Compila para produção
+npm run build
+```
+
+## Suporte
+
+O Vuelluminati utiliza o ecossistema do Vue, logo, seu suporte será o mesmo das versões dos componentes do ecossistema instalados.
+
+Você pode verificar todas as versões através do arquivo `package.json`.
+
+**O Vuelluminati não pretende suportar nenhuma versão do Internet Explorer. Não irá levar em consideração nenhuma versão deste navegador para implementação de alguma feature futuramente. Caso pretenda dar suporte à este navegador, certifique-se de adicionar todos os pollyfills e workarounds necessários.**
+
+Atualmente o suporte vai **parcialmente** até a versão 10 (já incluso polyfill de Promises).
+
+O gerenciador da aplicação, [Lummi](/lummi), recomenda o **node 5.6.0** ou superior.
+
+## Casos de uso
+O Vuelluminati pretende servir desenvolvedores que se preocupam com escalabilidade da aplicação e rápido desenvolvimento e controle/deploy sobre seu projeto. Padronização de código, criação de componentes, módulos e classes com um comando, e tudo em uma estrutura simples e direta.
+
+> Adotei este padrão em algumas aplicações, onde há forte comunicação com a API,
+e todos os processos que vejo que são cansativos e repetitivos, tento automatizar, **sem tirar o meu controle**.
+
+Este projeto é mantido por um único desenvolvedor, e conta com a colaboração da comunidade para melhorias.
