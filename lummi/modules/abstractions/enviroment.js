@@ -140,40 +140,65 @@ Enviroment.show = function (query) {
  * Atualiza o valor de um ambiente selecioado
  * @param {array} args - Nome do Ambiente, url da api e url da aplicação
  */
-Enviroment.update = args => {
-	let envname = args[0] != undefined ? args[0] : null
-	let api     = args[1] != undefined ? args[1] : null
-	let app     = args[2] != undefined ? args[2] : null
-	let mod     = args[3] != undefined ? args[3] : null
-	let comment = args[4] != undefined ? args[4] : null
+Enviroment.update = (name, args) => {
+	let envname = null;
+	let api     = null;
+	let app     = null;
+	let module  = null;
+  let comment = null;
 
+  args.map(arg => {
+    if (arg.key == '-name' || arg.key == '-n')
+      return envname = arg.value;
+
+    if (arg.key == '-api' || arg.key == '-A')
+      return api = arg.value;
+
+    if (arg.key == '-app' || arg.key == '-a')
+      return app = arg.value;
+
+    if (arg.key == '-module' || arg.key == '-m')
+      return module = arg.value;
+
+    if (arg.key == '-comment' || arg.key == '-c')
+      return comment = arg.value;
+  });
+
+	// ambientes
 	let envs = {}
 
-	// Caso o comando nçao seja inserio de forma correta
-	if (!app || !api || !envname)
-		return showUp(chalk.red('O comando update env não foi inserido corretamente'))
-
-	// Recupera os envs atuais
+	// lê os ambientes atuais
 	try {
 		envs = JSON.parse(fs.readFileSync(Envs))
-
-		// verifica se o ambiente que está sendo inserido já existe
-		if (!envs[envname]) {
-			return showUp(chalk.red('Você está tentando atualizar um ambienente que não existe!'))
-		} else {
-			envs[envname] = { api, app, comment }
-			envs = JSON.stringify(envs, null, 2)
-		}
+		if (!envs[name]) return showUp(chalk.red('Você está tentando atualizar um ambiente que não existe'))
 	} catch (err) {
 		if (err)
-			console.log('Erro ao ler ambientes'); console.log(err)
-		return
-	}
+			console.log('Erro ao ler ambientes')
+			console.log(err)
+			return
+  }
 
-	// Adiciona o novo enviroment
+  if (envname != null) {
+    let bkp = JSON.parse(JSON.stringify(envs[name]));
+    delete envs[name];
+    envs[envname] = {
+      api: api != null ? api : envs[name].api,
+      app: app != null ? app : envs[name].app,
+      comment: comment != null ? comment : envs[name].comment,
+      module: module != null ? module : envs[name].module,
+    };
+  } else {
+    envs[name] = {
+      api: api != null ? api : envs[name].api,
+      app: app != null ? app : envs[name].app,
+      comment: comment != null ? comment : envs[name].comment,
+      module: module != null ? module : envs[name].module,
+    };
+  }
+  envs = JSON.stringify(envs, null, 2);
 	try {
 		fs.writeFileSync(Envs, envs)
-		return showUp('O ambiente ' + chalk.bgGreen(envname) + ' foi atualizado com sucesso')
+		return showUp('O ambiente ' + chalk.bgGreen(` ${envname} `) + ' foi criado com sucesso')
 	} catch (err) {
 		return showUp(chalk.red('Não foi possível salvar o ambiente! \n   ' + err))
 	}

@@ -56,7 +56,7 @@ if (args.includes('update')) {
   let willUpdate = args[1]
 
   if (willUpdate == 'env') {
-    return update.env(args.slice(2))
+    return update.env(args[2], normalizeCommands(args.slice(2)));
   }
 }
 
