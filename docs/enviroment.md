@@ -35,15 +35,16 @@ Você também pode visualizar apenas o ambiente atual, com o comando: `node lumm
 
 Para criar um ambiente, você precisa entender suas propredades:
 
-- `Name`: Nome do ambiente
-- `Api`: URL base da API da aplicação (não geriada pelo vue)
-- `App`: URL base da aplicação (link para acessar a aplicação)
-- `Comment`: Descrição do ambiente (irá aparecer na listagem) *opcional*
+- `-name` `-n`: Nome do ambiente
+- `-api` `-A`: URL base da API da aplicação (não geriada pelo vue)
+- `-app` `-a` : URL base da aplicação (link para acessar a aplicação)
+- `-module` `-m`: Módulo dentro da sua API e/ou aplicação (sufixo da url)
+- `-comment` `-c`: Descrição do ambiente
 
 Entendido o que cada proriedade é, adiciona um ambiente de exmeplo com o comando:
 
 ``` sh
-node lummi add env exemplo https://api.eg https://app.eg "Apenas um env de exemplo"
+node lummi add env -name="exemplo" -api="https://api.eg" -app="https://app.eg" -comment="Apenas um env de exemplo"
 ```
 
 Uma mensagem de sucesso irá aparecer na tela. Isso significa que seu ambiente está pronto para ser acessado.
@@ -64,7 +65,7 @@ Como mencionado acima, o ambiente `prod` é um ambiente **protegido** e não pod
 
 Caso deseje atualizar um ambiente específico, use o comando:
 ```
-node lummi update env NOME_DO_AMBIENTE API APP [COMENTARIO]
+node lummi update env NOME_DO_AMBIENTE [[-api] [-app] [-module] [-comment] [-name]]
 ```
 
 ## Alternando entre ambientes
@@ -80,7 +81,7 @@ Obviamente, você só poderá alternar entre ambientes cadastrados.
 
 ## Acessando ambientes dentro da aplicação
 
-Dentro da sua `vm` existem três atalhos: `$app`, `$api` e `$config` onde você pode acessar os valores do ambiente atual.
+Dentro da sua `vm` existem quatro atalhos: `$app`, `$api`, `$module` e `$config` onde você pode acessar os valores do ambiente atual.
 
 *Exemplo de uso:*
 
@@ -90,6 +91,7 @@ Dentro da sua `vm` existem três atalhos: `$app`, `$api` e `$config` onde você 
     data: () => ({
       api: this.$api,
       app: this.$app,
+      mod: this.$module,
       env: this.$config.env,
     }),
   }
@@ -100,6 +102,7 @@ Dentro da sua `vm` existem três atalhos: `$app`, `$api` e `$config` onde você 
     <p>App: {{ app }}</p>
     <p>Api: {{ api }}</p>
     <p>Env: {{ env }}</p>
+    <p>Módulo: {{ mod }}</p>
   </div>
 </template>
 ```
@@ -109,4 +112,5 @@ import Config from 'Core/Config';
 const ENV = Config.env;
 const API = Config.envs[ENV].api;
 const APP = Config.envs[ENV].app;
+const MODULE = Config.envs[ENV].module;
 ```
