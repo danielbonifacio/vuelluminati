@@ -4,6 +4,20 @@
 const chalk = require('chalk')
 let args = process.argv.slice(2)
 
+function normalizeCommands(args) {
+  const normalizedCommands = [];
+  args.map(command => {
+    command = command.split('=');
+    command = {
+      key: command[0],
+      value: command[1],
+    };
+    normalizedCommands.push(command);
+  });
+
+  return normalizedCommands;
+}
+
 if (args.includes('--step') || args.includes('-s')) {
 	const step = require('./modules/step')
 	if (args.includes('env')) {
@@ -16,7 +30,7 @@ if (args.includes('add')) {
   let willAdd = args[1]
 
   if (willAdd == 'env') {
-    return add.env(args.slice(2))
+    return add.env(normalizeCommands(args.slice(2)));
 	}
 
 	if (willAdd == 'component') {
@@ -42,7 +56,7 @@ if (args.includes('update')) {
   let willUpdate = args[1]
 
   if (willUpdate == 'env') {
-    return update.env(args.slice(2))
+    return update.env(args[2], normalizeCommands(args.slice(2)));
   }
 }
 
@@ -96,6 +110,22 @@ if (args.includes('generate')) {
 		const generate = require('./modules/generate')
 		return generate.envs()
 	}
+}
+
+if (args.includes('debug')) {
+  const updates = [];
+  let debug = args.slice(1);
+
+  debug.map(command => {
+    command = command.split('=');
+    command = {
+      key: command[0],
+      value: command[1],
+    };
+    updates.push(command);
+  });
+
+  return console.log(updates);
 }
 
 else {

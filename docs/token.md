@@ -20,7 +20,7 @@ Esta validação é feita de forma automática e você pode encontrar ela em `Co
 Uma requisição com token enviaria este header:
 
 ```
-Authentication: Bearer SEU_TOKEN_AQUI
+Authorization: Bearer SEU_TOKEN_AQUI
 ```
 
 

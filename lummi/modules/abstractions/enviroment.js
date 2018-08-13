@@ -5,7 +5,7 @@ const chalk = require('chalk')
 const fs = require('fs')
 const { Env, Envs } = require('../../config/dir')
 
-const Enviroment = new Object
+const Enviroment = {}
 
 Enviroment.Index = function (command) {
 
@@ -18,22 +18,47 @@ Enviroment.Index = function (command) {
 		if (answer == 'add' || answer == 'adicionar') {
 			let name = ''
 			let api = ''
-			let app = ''
+      let app = ''
+      let mod = null
 			let comment = null
 			rl.question('Qual será o nome do ambiente? ', answer => {
 				name = answer
 				rl.question('Qual será a URL da API deste ambiente? ', answer => {
-					api = answer
-					rl.question('Qual será a URL da Aplicação deste ambiente? ', answer => {
-						app = answer;
-						rl.question('Descreva este comentário: ', answer => {
-							comment = answer != '' ? answer : null
-							rl.close()
-							return Enviroment.add([name, api, app, comment])
-						})
-					})
+          api = answer
+          rl.question('Qual será a URL da Aplicação deste ambiente? ', answer => {
+            app = answer;
+            rl.question('Qual será o módulo deste ambiente? ', answer => {
+              mod = answer != '' ? answer : null
+              rl.question('Coment algo sobre este ambiente: ', answer => {
+                comment = answer != '' ? answer : null
+                rl.close()
+                return Enviroment.add([
+                  {
+                    key: '-name',
+                    value: name,
+                  },
+                  {
+                    key: '-module',
+                    value: mod,
+                  },
+                  {
+                    key: '-api',
+                    value: api,
+                  },
+                  {
+                    key: '-app',
+                    value: app,
+                  },
+                  {
+                    key: '-comment',
+                    value: comment,
+                  },
+                ]);
+              })
+            })
+          })
 				})
-			})
+      })
 		}
 
 		else {
@@ -115,39 +140,69 @@ Enviroment.show = function (query) {
  * Atualiza o valor de um ambiente selecioado
  * @param {array} args - Nome do Ambiente, url da api e url da aplicação
  */
-Enviroment.update = args => {
-	let envname = args[0] != undefined ? args[0] : null
-	let api     = args[1] != undefined ? args[1] : null
-	let app     = args[2] != undefined ? args[2] : null
-	let comment = args[3] != undefined ? args[3] : null
+Enviroment.update = (name, args) => {
+	let envname = null;
+	let api     = null;
+	let app     = null;
+	let module  = null;
+  let comment = null;
 
+  args.map(arg => {
+    if (arg.key == '-name' || arg.key == '-n')
+      return envname = arg.value;
+
+    if (arg.key == '-api' || arg.key == '-A')
+      return api = arg.value;
+
+    if (arg.key == '-app' || arg.key == '-a')
+      return app = arg.value;
+
+    if (arg.key == '-module' || arg.key == '-m')
+      return module = arg.value;
+
+    if (arg.key == '-comment' || arg.key == '-c')
+      return comment = arg.value;
+  });
+
+  if (envname == 'prod') {
+    return showUp(chalk.red('Você não pode alterar o nome do ambiente "prod"'));
+  }
+
+	// ambientes
 	let envs = {}
 
-	// Caso o comando nçao seja inserio de forma correta
-	if (!app || !api || !envname)
-		return showUp(chalk.red('O comando update env não foi inserido corretamente'))
-
-	// Recupera os envs atuais
+	// lê os ambientes atuais
 	try {
 		envs = JSON.parse(fs.readFileSync(Envs))
-
-		// verifica se o ambiente que está sendo inserido já existe
-		if (!envs[envname]) {
-			return showUp(chalk.red('Você está tentando atualizar um ambienente que não existe!'))
-		} else {
-			envs[envname] = { api, app, comment }
-			envs = JSON.stringify(envs, null, 2)
-		}
+		if (!envs[name]) return showUp(chalk.red('Você está tentando atualizar um ambiente que não existe'))
 	} catch (err) {
 		if (err)
-			console.log('Erro ao ler ambientes'); console.log(err)
-		return
-	}
+			console.log('Erro ao ler ambientes')
+			console.log(err)
+			return
+  }
 
-	// Adiciona o novo enviroment
+  if (envname != null) {
+    let bkp = JSON.parse(JSON.stringify(envs[name]));
+    delete envs[name];
+    envs[envname] = {
+      api: api != null ? api : envs[name].api,
+      app: app != null ? app : envs[name].app,
+      comment: comment != null ? comment : envs[name].comment,
+      module: module != null ? module : envs[name].module,
+    };
+  } else {
+    envs[name] = {
+      api: api != null ? api : envs[name].api,
+      app: app != null ? app : envs[name].app,
+      comment: comment != null ? comment : envs[name].comment,
+      module: module != null ? module : envs[name].module,
+    };
+  }
+  envs = JSON.stringify(envs, null, 2);
 	try {
 		fs.writeFileSync(Envs, envs)
-		return showUp('O ambiente ' + chalk.bgGreen(envname) + ' foi atualizado com sucesso')
+		return showUp('O ambiente ' + chalk.bgGreen(` ${name} `) + ' atualizado com sucesso')
 	} catch (err) {
 		return showUp(chalk.red('Não foi possível salvar o ambiente! \n   ' + err))
 	}
@@ -159,36 +214,47 @@ Enviroment.update = args => {
  * @param {array} args Nome do Ambiente, url da api e url da aplicação
  */
 Enviroment.add = args => {
-	let envname = args[0] != undefined ? args[0] : null
-	let api     = args[1] != undefined ? args[1] : null
-	let app     = args[2] != undefined ? args[2] : null
-	let comment = args[3] != undefined ? args[3] : null
+	let envname = null;
+	let api     = null;
+	let app     = null;
+	let module  = null;
+  let comment = null;
 
-	// Caso o comando nçao seja inserio de forma correta
-	if (!app || !api || !envname)
-		return showUp(chalk.bgRed('O comando add env não foi inserido corretamente'))
+  args.map(arg => {
+    if (arg.key == '-name' || arg.key == '-n')
+      return envname = arg.value;
 
-	// Define no escopo da função a variável que irá conter os ambientes
+    if (arg.key == '-api' || arg.key == '-A')
+      return api = arg.value;
+
+    if (arg.key == '-app' || arg.key == '-a')
+      return app = arg.value;
+
+    if (arg.key == '-module' || arg.key == '-m')
+      return module = arg.value;
+
+    if (arg.key == '-comment' || arg.key == '-c')
+      return comment = arg.value;
+  });
+
+	// ambientes
 	let envs = {}
 
-	// Recupera os envs atuais
+	// lê os ambientes atuais
 	try {
 		envs = JSON.parse(fs.readFileSync(Envs))
-		// verifica se o ambiente que está sendo inserido já existe
-		if (envs[envname]) {
-			return showUp(chalk.red('Você está tentando inserir um ambienente que já existe!'))
-		} else {
-			envs[envname] = { api, app, comment: comment.replace(/-/g, ' ') }
-			envs = JSON.stringify(envs, null, 2)
-		}
+		if (envs[envname]) return showUp(chalk.red('Você está tentando inserir um ambienente que já existe!'))
 	} catch (err) {
 		if (err)
 			console.log('Erro ao ler ambientes')
 			console.log(err)
 			return
-		}
+    }
 
-	// Adiciona o novo enviroment
+  envs[envname] = { api, app, comment, module };
+  envs = JSON.stringify(envs, null, 2);
+
+	// grava o ambiente
 	try {
 		fs.writeFileSync(Envs, envs)
 		return showUp('O ambiente ' + chalk.bgGreen(` ${envname} `) + ' foi criado com sucesso')

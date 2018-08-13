@@ -39,7 +39,7 @@ Caso queira criar componentes aninhados, você pode passar **um**
 único aninhamento inexistente, ou todos os aninhamentos existentes antes do nome do componente:
 
 ```
-node lummi add component nested/MyComponent scss
+node lummi add component nested/MyComponent
 ```
 
 irá gerar `Components/nested/MyComponent.vue`
