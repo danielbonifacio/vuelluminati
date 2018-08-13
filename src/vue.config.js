@@ -22,6 +22,8 @@ Vue.prototype.$store = Store;
  */
 Vue.prototype.$api = Config.envs[Config.env].api;
 Vue.prototype.$app = Config.envs[Config.env].app;
+Vue.prototype.$apm = `${Config.envs[Config.env].api}/${Config.envs[Config.env].module}`;
+Vue.prototype.$module = Config.envs[Config.env].module;
 Vue.prototype.$config = Config;
 
 export default Vue;
