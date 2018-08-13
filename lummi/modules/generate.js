@@ -13,12 +13,14 @@ Generate.envs = () => {
 	"dev": {
 		"api": "http://localhost:3000",
 		"app": "http://localhost:8080",
-		"comment": "Ambiente de desenvolvimento local"
+    "comment": "Ambiente de desenvolvimento local",
+    "module": null
 	},
 	"prod": {
-		"api": "https://yourapi.com",
-		"app": "https://yourapp.com",
-		"comment": "Ambiente de produção"
+		"api": "https://api.com",
+		"app": "https://app.com",
+    "comment": "Ambiente de produção",
+    "module": null
 	}
 }`
 
