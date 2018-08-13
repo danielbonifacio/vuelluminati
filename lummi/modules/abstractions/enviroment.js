@@ -164,6 +164,10 @@ Enviroment.update = (name, args) => {
       return comment = arg.value;
   });
 
+  if (envname == 'prod') {
+    return showUp(chalk.red('Você não pode alterar o nome do ambiente "prod"'));
+  }
+
 	// ambientes
 	let envs = {}
 
@@ -198,7 +202,7 @@ Enviroment.update = (name, args) => {
   envs = JSON.stringify(envs, null, 2);
 	try {
 		fs.writeFileSync(Envs, envs)
-		return showUp('O ambiente ' + chalk.bgGreen(` ${envname} `) + ' foi criado com sucesso')
+		return showUp('O ambiente ' + chalk.bgGreen(` ${name} `) + ' atualizado com sucesso')
 	} catch (err) {
 		return showUp(chalk.red('Não foi possível salvar o ambiente! \n   ' + err))
 	}
