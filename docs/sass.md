@@ -25,6 +25,6 @@ $white: #fff;
 </style>
 ```
 
-**Observação:** Não saia adicionando regras de elementos neste aquivo, pois cada elemento irá carregar ele e terá vários estilos se sobescrevendo, o que pode ser um problema. Variáveis não são renderizadas, então, este problema não ocorre neste cenário.
+**Observação:** Não saia adicionando regras de elementos neste aquivo, pois cada componente irá carregar seu conteúdo, o que pode ser um problema em larga escala. Como variáveis não são renderizadas, este problema não ocorre neste cenário.
 
-Caso queira adicionar um estilo global, importe ele componente pai `@/App.vue`.
+Caso queira adicionar um estilo global, importe ele componente pai `@/App.vue` ou dentro de um arquivo javascript, como `main.js`
