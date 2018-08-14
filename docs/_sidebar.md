@@ -12,6 +12,7 @@
 
 * Recursos
 
+  * [Sass/Scss](sass.md)
   * [Módulo da aplicação](app_module.md)
   * [Token](token.md)
   * [Cookie](cookie.md)
