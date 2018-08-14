@@ -41,6 +41,24 @@ Pode receber 3 valores:
 - `'local'` Armazena o token no **localStorage** do navegador
 - `'session'` Armazena o token no **sessionStorage** do navegador
 
+## index.html
+
+Você pode alterar o conteúdo da tag `<title>` que é lido pelo navegador antes de carregar o javascript.
+
+## .git
+Caso esteja trabalhando dentro de um projeto git, certifique-se de remover o diretório `.git` da raiz.
+
+**Atenção:** o comando abaixo irá **deletar permanentemente** o diretório .git do local onde seu terminal estiver aberto.
+```
+rm -rf .git
+```
+
+## .eslintignore
+
+Caso não deseje usar lint ou configurar diretórios ou arquivos específicos para serem analisados, use o arquivo `.eslintignore`
+
+Saiba mais sobre a configuração do ESLint na [documentação oficial](https://eslint.org/docs/user-guide/configuring)
+
 ## envs.json/env.json
 
 Você pode alterar manualmente `Core/Config/envs.json` e `Core/Config/env.json` desde que entenda o que está fazendo.
