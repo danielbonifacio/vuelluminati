@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
+    "paths": {
+      "Core/*": ["src/core/*"],
+      "Components/*": ["src/components/*"],
+      "@/*": ["src/*"],
+      "Views/*": ["src/views/*"],
+      "Lummi/*": ["lummi/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
