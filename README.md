@@ -1,5 +1,10 @@
 # Vuelluminatti
 
+# Depreciado
+> A forma de gerenciamento que o Vue CLI 3 suporta oficialmente, pode suprir as necessidades desse repositório. Todos os Helpers que não são nativamente suportados pelo Vue CLI (token renewer, cookies manager, etc.) serão movidos para um novo repositório em breve.
+
+---
+
 [Ver a documentação completa](https://danielbonifacio.com.br/vuelluminati)
 
 ## Instalação
